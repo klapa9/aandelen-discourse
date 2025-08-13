@@ -7,5 +7,7 @@
 enabled_site_setting :magast_enabled
 
 after_initialize do
-  # Hier komt alle plugin-logica
+  add_routes do
+    post "/shares/transfer" => "shares#transfer"
+  end
 end
