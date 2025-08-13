@@ -1,5 +1,5 @@
 plugins:
-  magast_enabled:
-    default: true
-    client: true
-    type: boolean
+  aandelen_enabled:
+  default: true
+  client: true
+

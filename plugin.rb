@@ -1,13 +1,11 @@
-# name: Aandelen-plugin
-# about: Beheer en deel van Magast aandelen
-# version: 0.1
-# authors: [Jouw Naam]
-# url: https://github.com/klapa9/magast-aandelen
+# name: aandelen-discourse
+# about: Beheer aandelen van leden
+# version: 0.1.0
+# authors: klapa9
+# url: https://github.com/klapa9/aandelen-discourse
 
-enabled_site_setting :magast_enabled
+enabled_site_setting :aandelen_enabled
 
 after_initialize do
-  add_routes do
-    post "/shares/transfer" => "shares#transfer"
-  end
+  Rails.logger.info("Aandelen plugin geladen!")
 end
