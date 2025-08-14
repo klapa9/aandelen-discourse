@@ -1,0 +1,3 @@
+# config/client.yml
+aandelen_enabled:
+  client: true
