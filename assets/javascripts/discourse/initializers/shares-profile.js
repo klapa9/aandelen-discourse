@@ -40,3 +40,24 @@ export default {
                       body: JSON.stringify({
                         target_id: widget.model.id,
                         amount: amount
+                      })
+                    }).then(res => res.json())
+                      .then(data => {
+                        if (data.success) {
+                          alert("Aandelen succesvol overgedragen!");
+                          location.reload();
+                        } else {
+                          alert("Fout: " + (data.errors || "Onbekend"));
+                        }
+                      });
+                  }
+                }
+              },
+              "Schenk aandelen"
+            )
+          ]);
+        }
+      });
+    });
+  }
+};
