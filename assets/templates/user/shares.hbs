@@ -1,0 +1,47 @@
+{{! We gebruiken de standaard list-controls component voor de knoppen/filters boven de lijst }}
+<div class="list-controls">
+  <div class="container">
+    {{! Hier zou je later bijvoorbeeld een filter-knop kunnen toevoegen }}
+    <h2>Overzicht Aandelen</h2>
+  </div>
+</div>
+
+{{! De 'user-stream' en 'topic-list' klassen zorgen voor de juiste styling van de lijst }}
+<div class="user-stream">
+  <div class="topic-list">
+
+    {{! Hier komt de 'header' van je tabel/lijst }}
+    <div class="topic-list-header">
+      <div class="topic-list-data">Datum</div>
+      <div class="topic-list-data">Transactie</div>
+      <div class="topic-list-data text-right">Aantal</div>
+    </div>
+
+    {{! Hier loop je door je data heen. Dit is nog een placeholder. }}
+    {{#if model.shareTransactions}}
+      {{#each model.shareTransactions as |transaction|}}
+        <div class="topic-list-item">
+          <div class="topic-list-data">
+            {{format-date transaction.date format="medium"}}
+          </div>
+          <div class="topic-list-data">
+            {{transaction.description}}
+          </div>
+          <div class="topic-list-data text-right">
+            {{#if transaction.isPositive}}
+              <span class="positive-shares">+{{transaction.amount}}</span>
+            {{else}}
+              <span class="negative-shares">-{{transaction.amount}}</span>
+            {{/if}}
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{! Toon een bericht als er geen transacties zijn }}
+      <div class="topic-list-item">
+        <p>Deze gebruiker heeft nog geen aandelentransacties.</p>
+      </div>
+    {{/if}}
+
+  </div>
+</div>
