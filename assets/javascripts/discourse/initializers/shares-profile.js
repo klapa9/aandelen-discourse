@@ -5,11 +5,16 @@ export default {
 
   initialize() {
     withPluginApi("0.8", (api) => {
-      api.decorateUserCard((userCard) => {
-        const shares = userCard.user.custom_fields.shares || 0;
-        userCard.addBadge(`Aandelen: ${shares}`);
+      api.decorateWidget("user-card:after", (helper) => {
+        const user = helper.attrs.user;
+        if (!user || !user.custom_fields) return;
+
+        const shares = user.custom_fields.shares || 0;
+
+        return helper.h("div.shares-badge", `Aandelen: ${shares}`);
       });
     });
-  }
+  },
 };
+
 
