@@ -6,9 +6,6 @@
 
 enabled_site_setting :aandelen_enabled
 
-# Registreer de JS-routes en templates voor de "shares" tab
-register_asset "javascripts/discourse/routes/user-shares.js", :client_side
-register_asset "javascripts/discourse/templates/user/shares.hbs", :client_side
 
 after_initialize do
   Rails.logger.info("Aandelen plugin geladen!")
