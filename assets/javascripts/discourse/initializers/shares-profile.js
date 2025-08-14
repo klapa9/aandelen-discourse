@@ -6,6 +6,7 @@ export default {
   initialize() {
     withPluginApi("1.0.0", (api) => {
       // Only add the navigation bar item (tab)
+      console.log("[Aandelen-tab] shares-profile initializer loaded"); // <-- Debug log!
       api.addNavigationBarItem({
         name: 'shares',
         displayName: 'Aandelen',

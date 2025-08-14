@@ -4,6 +4,7 @@ export default DiscourseRoute.extend({
   model() {
     // Haal het gebruikersmodel op van de bovenliggende route ('user')
     const user = this.modelFor('user');
+    console.log("[Aandelen-tab] shares-profile model loaded for user:", user.username);
 
     // HIER laad je de data. Voor nu gebruiken we hard-coded dummy data.
     // Later haal je dit via de Discourse API uit je plugin's backend.
