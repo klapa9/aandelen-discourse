@@ -7,21 +7,45 @@ export default {
     withPluginApi("1.0.0", (api) => {
 
       // DEEL 1: Voeg de knop toe aan de navigatiebalk.
-      // Dit deel was al correct.
       api.addNavigationBarItem({
         name: 'shares',
         displayName: 'Aandelen',
-        route: 'user.shares', // We linken naar de 'user.shares' route
+        route: 'user.shares',
         category: 'user'
       });
 
-      // DEEL 2: Registreer de 'user.shares' route.
-      // Dit is de nieuwe, correcte manier om de route toe te voegen.
-      api.on('router:map', (router) => {
-        // We zoeken de bestaande 'user' route en voegen er een sub-route aan toe.
-        router.route('user', { path: '/u/:username', resetNamespace: true }, function() {
-          this.route('shares'); // Dit maakt de URL /u/GEBRUIKERSNAAM/shares mogelijk
-        });
+      // DEEL 2: Registreer de route '/u/:username/shares'
+      api.addRoute('user.shares', { path: 'shares' }, 'user');
+
+      // DEEL 3: Voeg een controller toe voor deze route
+      api.modifyClass('controller:user.shares', {
+        pluginId: 'shares-profile',
+        
+        model(params) {
+          // Hier kun je API calls doen of data ophalen. Voor nu dummy data:
+          return {
+            username: params.username,
+            shares: [
+              { name: 'Apple', amount: 10 },
+              { name: 'Tesla', amount: 5 }
+            ]
+          };
+        }
+      });
+
+      // DEEL 4: Voeg een template toe (Ember) voor user.shares
+      api.registerWidget('user.shares', {
+        tagName: 'div',
+        html(attrs, state) {
+          const sharesList = attrs.model.shares.map(
+            s => `<li>${s.name}: ${s.amount} aandelen</li>`
+          ).join('');
+          
+          return `
+            <h2>${attrs.model.username}'s Aandelen</h2>
+            <ul>${sharesList}</ul>
+          `;
+        }
       });
 
     });
