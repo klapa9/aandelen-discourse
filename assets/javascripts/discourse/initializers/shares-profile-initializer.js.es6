@@ -7,10 +7,13 @@ export default {
     withPluginApi("1.0.0", (api) => {
       console.log("[Aandelen-tab] initializer loaded");
 
-      api.addProfileTab('shares', 'Aandelen', {
-        route: 'user.shares'
+      api.addNavigationBarItem({
+        name: 'shares',
+        displayName: 'Aandelen',
+        route: 'user.shares',
+        category: 'user'
       });
     });
   }
 };
-// Dit voegt de 'Aandelen' tab toe aan het gebruikersprofiel
+// Dit voegt een navigatie-item toe aan de gebruikersprofielbalk
