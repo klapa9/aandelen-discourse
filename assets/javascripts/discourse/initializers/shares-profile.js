@@ -7,15 +7,22 @@ export default {
     withPluginApi("1.0.0", (api) => {
       console.log("[Aandelen-tab] shares-profile initializer loaded");
 
-      // 1️⃣ Register the route
-      api.addUserProfileRoute("shares", "shares");
-
-      // 2️⃣ Add the navigation tab for the profile
+      // Add the navigation tab
       api.addNavigationBarItem({
         name: "shares",
         displayName: "Aandelen",
         route: "user.shares",
         category: "user",
+      });
+
+      // Add the route manually
+      api.modifyClass("Router:main", {
+        pluginId: "aandelen-discourse",
+        map() {
+          this.route("user", { path: "/u/:username" }, function () {
+            this.route("shares");
+          });
+        },
       });
     });
   },
