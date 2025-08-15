@@ -2,15 +2,17 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default {
   name: "shares-profile-initializer",
-
   initialize() {
-    console.log("shares-profile-initializer loaded");
-    console.log("withPluginApi is:", typeof withPluginApi);
-
-    withPluginApi("0.8.7", (api) => {
+    withPluginApi("1.0.0", api => {
       console.log("[Aandelen-tab] initializer loaded");
 
-      api.addProfileTab('shares', 'Aandelen', 'user.shares');
+      api.addNavigationBarItem({
+        name: "shares",
+        displayName: "Aandelen",
+        route: "user.shares",
+        category: "user"
+      });
     });
   }
 };
+
