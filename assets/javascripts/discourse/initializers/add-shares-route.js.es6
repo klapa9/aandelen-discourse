@@ -1,16 +1,15 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
+// Importeer de Router direct vanuit de Discourse core bestanden
+import Router from 'discourse/router';
 
 export default {
-  name: "add-shares-route",
-
+  name: 'add-shares-route',
   initialize() {
-    withPluginApi("1.0.0", (api) => {
-      api.routeMap(function() {
-        // Dit voegt een geneste route 'shares' toe aan de bestaande 'user' route.
-        // Het pad wordt /u/:username/shares
-        this.route('user', { path: '/u/:username' }, function() {
-          this.route('shares'); 
-        });
+    // We voegen onze route direct toe aan de map-functie van de Router
+    Router.map(function() {
+      this.route('user', { path: '/u/:username' }, function() {
+        // Dit voegt de geneste route 'shares' toe
+        // met het pad /u/:username/shares
+        this.route('shares'); 
       });
     });
   }
