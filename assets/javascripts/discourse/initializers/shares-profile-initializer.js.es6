@@ -4,26 +4,13 @@ export default {
   name: "shares-profile-initializer",
 
   initialize() {
-    console.log("[Aandelen-tab] initializer loaded");
+    withPluginApi("1.6.0", (api) => {
+      console.log("[Aandelen-tab] initializer loaded");
 
-    withPluginApi("0.8.7", (api) => {
-      api.modifyClass("component:user-profile-tabs", {
-        pluginId: "aandelen-plugin",
-
-        didInsertElement() {
-          this._super(...arguments);
-
-          if (!this.availableTabs) {
-            this.availableTabs = [];
-          }
-
-          this.availableTabs.push({
-            name: "shares",
-            title: "Aandelen",
-            route: "user.shares",
-            icon: "chart-line",
-          });
-        },
+      api.addUserProfileTab({
+        name: "shares",
+        title: "Aandelen",
+        route: "user.shares",
       });
     });
   },
