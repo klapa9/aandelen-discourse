@@ -7,24 +7,12 @@ export default {
     console.log("[Aandelen-tab] initializer loaded");
 
     withPluginApi("0.8.7", (api) => {
-      api.modifyClass("component:user-profile-tabs", {
-        pluginId: "aandelen-plugin",
-
-        didInsertElement() {
-          this._super(...arguments);
-
-          if (!this.availableTabs) {
-            this.availableTabs = [];
-          }
-
-          this.availableTabs.push({
-            name: "shares",
-            title: "Aandelen",
-            route: "user.shares",
-            icon: "chart-line",
-          });
-        },
+      api.addUserProfileTab("shares", {
+        name: "user.shares",
+        route: "user.shares",
+        icon: "chart-line",
       });
     });
   },
 };
+
