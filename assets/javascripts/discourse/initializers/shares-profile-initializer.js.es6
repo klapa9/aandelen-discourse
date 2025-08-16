@@ -2,11 +2,16 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default {
   name: "aandelen-plugin-initializer",
+  // NIEUW: Deze regel zorgt ervoor dat onze code vroeg genoeg draait,
+  // voordat de router "op slot" gaat.
+  before: 'inject-discourse-objects', 
 
   initialize() {
+    // We gebruiken een API-versie die `modifyClass` ondersteunt.
     withPluginApi("0.8.7", (api) => {
-      // Dit deel was correct en definieert de route op de achtergrond.
-      // We laten dit ongewijzigd.
+      
+      // Dit definieert de route. Dankzij de 'before' hierboven,
+      // gebeurt dit nu op het juiste moment.
       api.modifyClass('router:main', {
         pluginId: 'AandelenDiscoursePlugin', 
         map() {
@@ -17,21 +22,8 @@ export default {
         }
       });
 
-      // NIEUW: Dit is de moderne manier om de visuele tab toe te voegen.
-      // We "decoreren" de navigatiebalk van het profiel met onze eigen template.
-      api.decoratePluginOutlet(
-        'user-profile-primary-nav', // De naam van de outlet
-        function(elem, args) {
-          // Deze functie wordt uitgevoerd om de content te renderen.
-          // 'args.model' is hier het 'user' object van het profiel.
-          // We geven dit door aan onze template.
-          return { model: args.model };
-        },
-        {
-          // We koppelen deze decoratie aan onze plugin
-          pluginId: 'AandelenDiscoursePlugin'
-        }
-      );
+      // De 'decoratePluginOutlet' code is hier VOLLEDIG VERWIJDERD.
+      // Het is niet meer nodig.
     });
   }
 };
