@@ -7,15 +7,12 @@ export default {
     console.log("[Aandelen-tab] initializer loaded");
 
     withPluginApi("0.8.7", (api) => {
-      // Voor oudere versies: gebruik addProfileTab in plaats van modifyClass
-      api.addProfileTab("shares", {
+      api.addUserProfileTab("shares", {
         title: "Aandelen",
-        route: "user.shares",
         icon: "chart-line",
-        visible: true // of voeg hier een functie toe voor conditional visibility
+        route: "user.shares",
       });
-
-      console.log("[Aandelen-tab] tab added");
     });
   },
 };
+
