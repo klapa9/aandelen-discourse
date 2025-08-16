@@ -6,15 +6,21 @@ export default {
   initialize() {
     console.log("[Aandelen-tab] initializer loaded");
 
-    withPluginApi("1.8.0", (api) => {
-      api.addUserProfileTab({
-        name: "shares",
-        title: "Aandelen",
-        route: "user.shares",
+    withPluginApi("0.8.7", (api) => {
+      api.modifyClass("controller:user", {
+        pluginId: "aandelen-plugin",
+
+        init() {
+          this._super(...arguments);
+
+          // Voeg de tab toe
+          this.availableTabs.push({
+            name: "shares",
+            route: "user.shares",
+            title: "Aandelen"
+          });
+        },
       });
-      console.log("Aandelen-tab toegevoegd!");
     });
   },
 };
-
-
