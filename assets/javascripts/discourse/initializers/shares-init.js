@@ -2,16 +2,13 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default {
   name: "shares-init",
-
   initialize() {
-    withPluginApi("1.8.0", (api) => {
-      // Profiel-tab toevoegen
-      api.addProfileTab("shares", {
-        title: "shares.tab", // verwijst naar client locale
-        route: "user.shares",
+    withPluginApi("0.8.7", (api) => {
+      api.registerUserProfileTab("shares", {
+        name: "Shares",
+        icon: "chart-line",
+        action: "showShares",
       });
-
-      // Eventueel user-card aanpassen (connector zie hieronder)
     });
   },
 };
