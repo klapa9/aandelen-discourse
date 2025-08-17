@@ -9,7 +9,7 @@ enabled_site_setting :aandelen_enabled
 
 after_initialize do
   Rails.logger.info("Aandelen plugin geladen!")
-  module ::Aandelen
+  module ::shares
   end
 
   load File.expand_path("../lib/shares/engine.rb", __FILE__)
