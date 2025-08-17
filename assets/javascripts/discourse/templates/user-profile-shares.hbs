@@ -1,0 +1,17 @@
+{{#if siteSettings.shares_enabled}}
+  <h2>{{i18n "shares.tab"}} van {{model.username}}</h2>
+
+  <p>
+    Deze gebruiker heeft <b>{{model.shares}}</b> aandelen.
+  </p>
+
+  {{#if currentUser}}
+    {{#if (not-eq model.id currentUser.id)}}
+      <form {{on "submit" (fn this.giveShares model.username)}}>
+        <label for="shares-count">{{i18n "shares.give"}}</label>
+        <input id="shares-count" type="number" min="1" {{on "input" this.updateCount}} />
+        <button type="submit">{{i18n "shares.give"}}</button>
+      </form>
+    {{/if}}
+  {{/if}}
+{{/if}}

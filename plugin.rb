@@ -9,15 +9,8 @@ enabled_site_setting :aandelen_enabled
 
 after_initialize do
   Rails.logger.info("Aandelen plugin geladen!")
-
-  User.register_custom_field_type('shares', :integer)
-  Discourse::Application.routes.append do
-    get "/u/:username/shares" => "users#show", constraints: { username: RouteFormat.username }
-  end
-  on(:user_created) do |user|
-    user.custom_fields['shares'] = 0
-    user.save_custom_fields
-  end
+  load File.expand_path("../lib/shares/engine.rb", __FILE__)
 end
+
 
 

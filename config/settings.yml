@@ -1,5 +1,7 @@
 plugins:
-  aandelen_enabled:
-  default: true
-  client: true
-
+  shares_enabled:
+    default: true
+    client: true
+  shares_starting_amount:
+    default: 10
+    client: false
