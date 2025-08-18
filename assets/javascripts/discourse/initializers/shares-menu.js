@@ -5,28 +5,16 @@ export default {
   name: "shares-menu",
 
   initialize() {
-    withPluginApi("0.8.31", (api) => {
-      // Voeg onderaan het gebruikersmenu een knop “Shares” toe
-      api.decorateWidget("user-menu:footer", (helper) => {
-        const currentUser = helper.widget.currentUser;
-        if (!currentUser) {
-          return;
-        }
-
-        return helper.h("li.menu-links-row", [
-          helper.h(
-            "button.btn.btn-icon-text",
-            {
-              title: "Shares",
-              onclick() {
-                showModal("user-shares-modal", {
-                  model: { username: currentUser.username },
-                });
-              },
-            },
-            [helper.h("span", "Shares")]
-          ),
-        ]);
+    withPluginApi("1.6.0", (api) => {
+      api.addUserMenuPanel({
+        id: "shares",
+        icon: "coins", // FontAwesome/Discourse icon
+        label: "Shares",
+        onClick(currentUser) {
+          showModal("user-shares-modal", {
+            model: { username: currentUser.username },
+          });
+        },
       });
     });
   },
