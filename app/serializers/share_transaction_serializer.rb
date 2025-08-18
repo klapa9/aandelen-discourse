@@ -1,7 +1,16 @@
 # frozen_string_literal: true
 
+class UserShareSerializer < ApplicationSerializer
+ attributes :id, :balance, :user_id
+end
+```
+
+### `app/serializers/share_transaction_serializer.rb`
+```ruby
+# frozen_string_literal: true
+
 class ShareTransactionSerializer < ApplicationSerializer
- attributes :id, :amount, :created_at, :sender_username, :receiver_username, :type_for_user
+ attributes :id, :amount, :created_at, :sender_username, :receiver_username
  
  def sender_username
    object.sender.username
@@ -9,13 +18,5 @@ class ShareTransactionSerializer < ApplicationSerializer
  
  def receiver_username
    object.receiver.username
- end
- 
- def type_for_user
-   if scope && object.sender_id == scope.id
-     'sent'
-   else
-     'received'
-   end
  end
 end

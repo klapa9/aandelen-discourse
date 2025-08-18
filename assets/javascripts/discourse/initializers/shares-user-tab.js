@@ -4,12 +4,19 @@ export default {
  name: "shares-user-tab",
  
  initialize() {
-   withPluginApi("1.0.0", (api) => {
-     // Add shares tab to user profile
-     api.addUserProfileTab("shares", "shares.title", "chart-line");
-     
-     // Add route for the shares tab
-     api.addUserProfileTabRoute("shares", "user.shares");
+   withPluginApi("0.8.31", (api) => {
+     // Add a simple link to shares in user menu for now
+     api.decorateWidget("user-menu:before", (helper) => {
+       const currentUser = helper.widget.currentUser;
+       if (currentUser) {
+         return helper.h("li", [
+           helper.h("a", {
+             href: `/shares/user/${currentUser.username}`,
+             className: "shares-link"
+           }, "My Shares")
+         ]);
+       }
+     });
    });
  }
 };

@@ -5,33 +5,47 @@ class SharesController < ApplicationController
  before_action :find_user, only: [:show, :send_shares]
  
  def show
-   user_share = @user.user_share || @user.create_user_share(balance: 0)
-   transactions = ShareTransaction.for_user(@user).recent.limit(20).includes(:sender, :receiver)
+   user_share = @user.ensure_user_share
+   transactions = ShareTransaction.for_user(@user).recent.limit(50).includes(:sender, :receiver)
    
    render json: {
-     user: BasicUserSerializer.new(@user, root: false),
-     balance: user_share.balance,
-     transactions: ActiveModel::ArraySerializer.new(
-       transactions,
-       each_serializer: ShareTransactionSerializer,
-       scope: current_user
-     ),
-     can_send: @user != current_user
+     user: {
+       id: @user.id,
+       username: @user.username,
+       avatar_template: @user.avatar_template
+     },
+     balance: user_share.balance.to_f,
+     transactions: transactions.map do |t|
+       {
+         id: t.id,
+         amount: t.amount.to_f,
+         sender_username: t.sender.username,
+         receiver_username: t.receiver.username,
+         created_at: t.created_at,
+         type_for_user: t.sender_id == @user.id ? 'sent' : 'received'
+       }
+     end,
+     can_send: @user.id != current_user.id
    }
  end
  
  def send_shares
-   return render_json_error(I18n.t('shares.cannot_send_to_self')) if @user == current_user
+   if @user.id == current_user.id
+     return render json: { success: false, error: "Cannot send shares to yourself" }, status: 400
+   end
    
    amount = params[:amount].to_f
-   return render_json_error(I18n.t('shares.invalid_amount')) if amount <= 0
    
-   current_user.initialize_shares unless current_user.user_share
+   if amount <= 0
+     return render json: { success: false, error: "Invalid amount" }, status: 400
+   end
    
-   if UserShare.transfer(current_user, @user, amount)
-     render json: { success: true, message: I18n.t('shares.shares_sent_successfully') }
+   result = UserShare.transfer_shares(current_user, @user, amount)
+   
+   if result[:success]
+     render json: { success: true, message: "Shares sent successfully!" }
    else
-     render_json_error(I18n.t('shares.insufficient_balance'))
+     render json: { success: false, error: result[:error] }, status: 400
    end
  end
  
