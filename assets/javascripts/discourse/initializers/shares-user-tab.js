@@ -5,13 +5,13 @@ export default {
 
   initialize() {
     withPluginApi("0.8.31", (api) => {
-      api.addUserProfileTab("shares", (user) => {
-        return {
-          name: "shares",
-          route: "user.shares",   // dit matcht je route
-          title: "Shares"
-        };
+      api.addProfileMenuItem({
+        name: "shares",
+        icon: "coins", // pak een bestaand FontAwesome icoon
+        label: "Shares",
+        route: "user.shares", // dit matcht jouw routebestand
       });
     });
   },
 };
+
