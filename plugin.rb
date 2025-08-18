@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 # name: aandelen-discourse
 # about: A plugin to manage user shares and transactions
 # version: 1.0.0
