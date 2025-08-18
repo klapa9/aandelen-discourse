@@ -8,12 +8,10 @@ export default {
       api.addUserProfileTab("shares", (user) => {
         return {
           name: "shares",
-          route: "user.shares",      // 👈 moet overeenkomen met addRoute
-          title: "Shares",
-          model: { username: user.username } // 👈 username param doorgeven
+          route: "user.shares",   // dit matcht je route
+          title: "Shares"
         };
       });
     });
-  }
+  },
 };
-
