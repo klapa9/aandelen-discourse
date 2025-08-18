@@ -5,13 +5,22 @@ export default {
 
   initialize() {
     withPluginApi("0.8.31", (api) => {
-      api.addProfileMenuItem({
-        name: "shares",
-        icon: "coins", // pak een bestaand FontAwesome icoon
-        label: "Shares",
-        route: "user.shares", // dit matcht jouw routebestand
+      api.modifyClass("controller:user", {
+        pluginId: "aandelen-discourse",
+
+        navItems() {
+          let items = this._super(...arguments);
+
+          items.push({
+            name: "shares",
+            route: "user.shares",
+            title: "Shares",
+            icon: "coins",
+          });
+
+          return items;
+        },
       });
     });
   },
 };
-
