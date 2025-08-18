@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# name: Aandelen discourse
+# name: aandelen-discourse
 # about: A plugin to manage user shares and transactions
 # version: 1.0.0
 # authors: klapa9
@@ -10,15 +10,15 @@ enabled_site_setting :shares_enabled
 
 after_initialize do
  # Load models first
- require_relative 'app/models/user_share'
- require_relative 'app/models/share_transaction'
+ require_relative 'app/models/user_share.rb'
+ require_relative 'app/models/share_transaction.rb'
  
  # Load serializers
- require_relative 'app/serializers/user_share_serializer'
- require_relative 'app/serializers/share_transaction_serializer'
+ require_relative 'app/serializers/user_share_serializer.rb'
+ require_relative 'app/serializers/share_transaction_serializer.rb'
  
  # Load controller
- require_relative 'app/controllers/shares_controller'
+ require_relative 'app/controllers/shares_controller.rb'
 
  # Add routes
  Discourse::Application.routes.append do
