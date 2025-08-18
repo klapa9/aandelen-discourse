@@ -1,0 +1,23 @@
+<div class="shares-balance">
+ <h3>{{i18n "shares.balance"}}</h3>
+ <div class="balance-amount">{{@balance}} shares</div>
+ 
+ {{#if @transactions}}
+   <h4>{{i18n "shares.transaction_history"}}</h4>
+   <div class="transactions-list">
+     {{#each @transactions as |transaction|}}
+       <div class="transaction-item">
+         <span class="transaction-type {{transaction.type_for_user}}">
+           {{#if (eq transaction.type_for_user "sent")}}
+             {{i18n "shares.sent_to" username=transaction.receiver_username}}
+           {{else}}
+             {{i18n "shares.received_from" username=transaction.sender_username}}
+           {{/if}}
+         </span>
+         <span class="transaction-amount">{{transaction.amount}} shares</span>
+         <span class="transaction-date">{{format-date transaction.created_at}}</span>
+       </div>
+     {{/each}}
+   </div>
+ {{/if}}
+</div>

@@ -1,5 +1,0 @@
-plugins:
-  aandelen_enabled:
-    default: true
-    client: true
-

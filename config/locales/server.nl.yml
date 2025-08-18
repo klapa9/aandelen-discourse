@@ -1,9 +1,0 @@
-nl:
-  site_settings:
-    shares_enabled: "Activeer het aandelen systeem"
-    shares_starting_amount: "Startaantal aandelen voor nieuwe gebruikers"
-
-  shares:
-    not_enough: "Je hebt niet genoeg aandelen om te schenken."
-    invalid_count: "Aantal aandelen ongeldig."
-    success: "Aandelen succesvol geschonken."

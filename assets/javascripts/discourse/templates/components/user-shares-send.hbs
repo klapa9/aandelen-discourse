@@ -1,0 +1,26 @@
+<div class="shares-send-form">
+ <h3>{{i18n "shares.send_shares"}}</h3>
+ <div class="send-form">
+   <label for="share-amount">{{i18n "shares.amount"}}</label>
+   <input 
+     type="number" 
+     id="share-amount" 
+     min="1" 
+     step="1" 
+     value={{this.amount}}
+     {{on "input" this.updateAmount}}
+     placeholder="Enter amount"
+   />
+   <button 
+     class="btn btn-primary" 
+     {{on "click" this.sendShares}}
+     disabled={{or (not this.amount) (lt this.amount 1) @loading}}
+   >
+     {{#if @loading}}
+       {{loading-spinner size="small"}}
+     {{else}}
+       {{i18n "shares.send"}}
+     {{/if}}
+   </button>
+ </div>
+</div>
