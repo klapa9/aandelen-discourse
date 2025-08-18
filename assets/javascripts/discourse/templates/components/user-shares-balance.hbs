@@ -1,23 +1,34 @@
 <div class="shares-balance">
- <h3>{{i18n "shares.balance"}}</h3>
- <div class="balance-amount">{{@balance}} shares</div>
+ <div class="shares-header">
+   <h3>{{i18n "shares.balance"}}</h3>
+   <div class="balance-amount">
+     <span class="balance-number">{{@balance}}</span>
+     <span class="balance-label">shares</span>
+   </div>
+ </div>
  
  {{#if @transactions}}
-   <h4>{{i18n "shares.transaction_history"}}</h4>
-   <div class="transactions-list">
-     {{#each @transactions as |transaction|}}
-       <div class="transaction-item">
-         <span class="transaction-type {{transaction.type_for_user}}">
-           {{#if (eq transaction.type_for_user "sent")}}
-             {{i18n "shares.sent_to" username=transaction.receiver_username}}
-           {{else}}
-             {{i18n "shares.received_from" username=transaction.sender_username}}
-           {{/if}}
-         </span>
-         <span class="transaction-amount">{{transaction.amount}} shares</span>
-         <span class="transaction-date">{{format-date transaction.created_at}}</span>
-       </div>
-     {{/each}}
+   <div class="shares-transactions">
+     <h4>{{i18n "shares.transaction_history"}}</h4>
+     <div class="transactions-list">
+       {{#each @transactions as |transaction|}}
+         <div class="transaction-item {{transaction.type_for_user}}">
+           <div class="transaction-info">
+             <span class="transaction-description">
+               {{#if (eq transaction.type_for_user "sent")}}
+                 {{i18n "shares.sent_to" username=transaction.receiver_username}}
+               {{else}}
+                 {{i18n "shares.received_from" username=transaction.sender_username}}
+               {{/if}}
+             </span>
+             <span class="transaction-date">{{format-date transaction.created_at}}</span>
+           </div>
+           <span class="transaction-amount">
+             {{#if (eq transaction.type_for_user "sent")}}-{{/if}}{{transaction.amount}}
+           </span>
+         </div>
+       {{/each}}
+     </div>
    </div>
  {{/if}}
 </div>

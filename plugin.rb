@@ -1,14 +1,12 @@
-
 # frozen_string_literal: true
-# name: aandelen-discourse
+
+# name: discourse-shares
 # about: A plugin to manage user shares and transactions
 # version: 1.0.0
-# authors: klapa9
-# url: https://github.com/klapa9/aandelen-discourse
+# authors: Your Name
+# url: https://github.com/yourusername/discourse-shares
 
 enabled_site_setting :shares_enabled
-
-register_asset "stylesheets/shares.scss"
 
 after_initialize do
  # Load plugin files
@@ -45,6 +43,3 @@ after_initialize do
    user.initialize_shares
  end
 end
-
-# Site settings
-register_site_setting_type 'shares', 'shares'

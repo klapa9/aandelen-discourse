@@ -1,0 +1,124 @@
+user-shares-container {
+ padding: 20px;
+ 
+ .shares-balance {
+   .shares-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 20px;
+     padding-bottom: 10px;
+     border-bottom: 1px solid var(--primary-low);
+     
+     h3 {
+       margin: 0;
+     }
+     
+     .balance-amount {
+       text-align: right;
+       
+       .balance-number {
+         font-size: 2em;
+         font-weight: bold;
+         color: var(--primary);
+       }
+       
+       .balance-label {
+         color: var(--primary-medium);
+         margin-left: 5px;
+       }
+     }
+   }
+   
+   .shares-transactions {
+     h4 {
+       margin-bottom: 15px;
+     }
+     
+     .transactions-list {
+       .transaction-item {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 10px;
+         margin-bottom: 5px;
+         border-radius: 5px;
+         background: var(--secondary);
+         
+         &.sent {
+           border-left: 3px solid var(--danger);
+         }
+         
+         &.received {
+           border-left: 3px solid var(--success);
+         }
+         
+         .transaction-info {
+           flex: 1;
+           
+           .transaction-description {
+             display: block;
+             font-weight: 500;
+           }
+           
+           .transaction-date {
+             display: block;
+             font-size: 0.9em;
+             color: var(--primary-medium);
+           }
+         }
+         
+         .transaction-amount {
+           font-weight: bold;
+           
+           .sent & {
+             color: var(--danger);
+           }
+           
+           .received & {
+             color: var(--success);
+           }
+         }
+       }
+     }
+   }
+ }
+ 
+ .shares-send-form {
+   .send-header {
+     margin-bottom: 20px;
+     
+     h3 {
+       margin: 0;
+     }
+   }
+   
+   .send-form {
+     max-width: 400px;
+     
+     .form-group {
+       margin-bottom: 15px;
+       
+       label {
+         display: block;
+         margin-bottom: 5px;
+         font-weight: 500;
+       }
+       
+       .form-control {
+         width: 100%;
+         padding: 8px 12px;
+         border: 1px solid var(--primary-low);
+         border-radius: 4px;
+         font-size: 16px;
+       }
+     }
+     
+     .form-actions {
+       .btn {
+         min-width: 100px;
+       }
+     }
+   }
+ }
+}

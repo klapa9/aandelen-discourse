@@ -2,14 +2,15 @@ import DiscourseRoute from "discourse/routes/discourse";
 import { ajax } from "discourse/lib/ajax";
 
 export default DiscourseRoute.extend({
- model(params) {
-   return ajax(`/u/${params.username}/shares`);
+ model() {
+   return ajax(`/u/${this.modelFor("user").username}/shares`);
  },
 
  setupController(controller, model) {
+   this._super(controller, model);
    controller.setProperties({
      model: model,
-     user: model.user,
+     user: this.modelFor("user"),
      balance: model.balance,
      transactions: model.transactions,
      canSend: model.can_send,

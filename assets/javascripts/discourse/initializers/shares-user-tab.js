@@ -4,14 +4,12 @@ export default {
  name: "shares-user-tab",
  
  initialize() {
-   withPluginApi("0.8.31", (api) => {
-     api.addUserMenuGlyph((widget) => {
-       return {
-         label: "shares.balance",
-         className: "shares-tab",
-         href: `/u/${widget.currentUser.username}/shares`
-       };
-     });
+   withPluginApi("1.0.0", (api) => {
+     // Add shares tab to user profile
+     api.addUserProfileTab("shares", "shares.title", "chart-line");
+     
+     // Add route for the shares tab
+     api.addUserProfileTabRoute("shares", "user.shares");
    });
  }
 };

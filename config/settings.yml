@@ -1,0 +1,10 @@
+shares:
+ shares_enabled:
+   default: true
+   client: true
+ shares_initial_balance:
+   default: 100
+   client: false
+ shares_max_transfer:
+   default: 1000
+   client: false
