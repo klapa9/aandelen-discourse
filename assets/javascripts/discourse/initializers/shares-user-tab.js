@@ -5,14 +5,15 @@ export default {
 
   initialize() {
     withPluginApi("0.8.31", (api) => {
-      // Voeg een nieuwe tab toe op het gebruikersprofiel
       api.addUserProfileTab("shares", (user) => {
         return {
           name: "shares",
-          route: `user-shares/${user.username}`,
-          title: "Shares"
+          route: "user.shares",      // 👈 moet overeenkomen met addRoute
+          title: "Shares",
+          model: { username: user.username } // 👈 username param doorgeven
         };
       });
     });
   }
 };
+
