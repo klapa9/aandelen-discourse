@@ -1,20 +1,28 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import { ajax } from "discourse/lib/ajax";
 
 export default class UserSharesSend extends Component {
- @tracked amount = null;
+  @tracked amount = 0;
 
- @action
- updateAmount(event) {
-   this.amount = parseFloat(event.target.value) || 0;
- }
+  @action
+  updateAmount(event) {
+    this.amount = event.target.value;
+  }
 
- @action
- sendShares() {
-   if (this.amount > 0) {
-     this.args.onSend(this.amount);
-     this.amount = null;
-   }
- }
+  @action
+  async sendShares(event) {
+    event.preventDefault();
+
+    try {
+      await ajax(`/shares/user/${this.args.user.username}/send`, {
+        type: "POST",
+        data: { amount: this.amount }
+      });
+      alert("Shares sent!");
+    } catch (e) {
+      alert("Error sending shares");
+    }
+  }
 }

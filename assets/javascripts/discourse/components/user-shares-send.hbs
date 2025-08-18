@@ -1,0 +1,4 @@
+<form {{on "submit" this.sendShares}}>
+  <input type="number" value={{this.amount}} {{on "input" this.updateAmount}} />
+  <button type="submit">Send</button>
+</form>

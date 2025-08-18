@@ -1,20 +1,12 @@
-<div class="user-shares">
-  {{user-shares-balance balance=this.balance}}
+<h2>{{this.model.user.username}}'s Shares</h2>
 
-  {{#if this.canSend}}
-    {{user-shares-send
-      user=this.user
-      balance=this.balance
-      onSent=this.refreshModel
-    }}
-  {{/if}}
+<UserSharesBalance @balance={{this.model.balance}} />
 
-  {{#if this.transactions}}
-    <h3>Transactions</h3>
-    <ul>
-      {{#each this.transactions as |tx|}}
-        <li>{{tx.created_at}} — {{tx.amount}} — {{tx.counterparty_username}}</li>
-      {{/each}}
-    </ul>
-  {{/if}}
-</div>
+<h3>Transactions</h3>
+<ul>
+  {{#each this.model.transactions as |t|}}
+    <li>{{t.amount}} → {{t.to_username}} ({{t.created_at}})</li>
+  {{/each}}
+</ul>
+
+<UserSharesSend @user={{this.model.user}} @balance={{this.model.balance}} />
