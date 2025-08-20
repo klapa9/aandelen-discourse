@@ -10,6 +10,7 @@
 enabled_site_setting :shares_enabled
 
 after_initialize do
+  Rails.logger.warn("👉 [aandelen-discourse] plugin.rb after_initialize loaded")
   # Zorg dat basis afhankelijkheden geladen zijn
   require_dependency "application_controller"
 
