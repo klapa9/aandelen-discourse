@@ -1,75 +1,38 @@
 # frozen_string_literal: true
 
 class ::SharesController < ::ApplicationController
-  requires_plugin 'aandelen-discourse'
+  # Fail fast if plugin is disabled/missing
+  requires_plugin ::AandelenDiscourse
 
-  # publiek zichtbare profiel-pagina → geen login verplicht
-  before_action :load_user, only: [:index, :show]
-  before_action :ensure_logged_in, only: [:send_shares]
+  # Allow a normal HTML GET (not just XHR) so we can eyeball it
+  skip_before_action :check_xhr, only: [:index]
 
   def index
-    # server-rendered HTML pagina (gebruik de view app/views/shares/index.html.erb)
-    @balance = (@user.user_share&.balance || 0)
-    @transactions = ShareTransaction.where(user_id: @user.id).order(created_at: :desc).limit(20)
-    render template: "shares/index"
+    username = params[:username]
+    Rails.logger.warn "[aandelen-discourse] SharesController#index for #{username}"
+
+    # Minimal HTML so you immediately see it's working
+    html = <<~HTML
+      <div style="padding:2rem;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto">
+        <h1 style="margin:0 0 0.5rem;">Shares page OK</h1>
+        <p>for <strong>#{ERB::Util.html_escape(username)}</strong></p>
+        <p>(This is a smoke-test coming from <code>SharesController#index</code>.)</p>
+      </div>
+    HTML
+
+    render html: html.html_safe
   end
 
-  # JSON endpoint voor ajax (ajax haalt data via /shares/user/:username)
   def show
-    user_share = @user.user_share || @user.create_user_share!(balance: 100)
-    transactions = ShareTransaction.where(user_id: @user.id).order(created_at: :desc).limit(50)
-
+    user = User.find_by_username!(params[:username])
     render_json_dump(
-      username: @user.username,
-      balance: user_share.balance,
-      transactions: transactions.map { |t|
-        {
-          id: t.id,
-          amount: t.amount,
-          transaction_type: t.transaction_type,
-          created_at: t.created_at
-        }
-      },
-      can_send: !!current_user
+      balance: (user.user_share&.balance || 100),
+      transactions: [],
+      can_send: current_user&.admin? || current_user&.id == user.id
     )
   end
 
-  # Simpele POST endpoint om aandelen te 'versturen'
-  # Verwacht params: target_username, amount
   def send_shares
-    amount = params[:amount].to_i
-    target_username = params[:target_username] || params[:target]
-    target = User.find_by_username(target_username)
-
-    if amount <= 0 || target.nil?
-      render_json_error("Invalid parameters")
-      return
-    end
-
-    sender = current_user
-    sender.ensure_user_share
-    target.ensure_user_share
-
-    if sender.shares_balance < amount
-      render_json_error("Insufficient balance")
-      return
-    end
-
-    ActiveRecord::Base.transaction do
-      sender.user_share.update!(balance: sender.shares_balance - amount)
-      target.user_share.update!(balance: target.shares_balance + amount)
-
-      ShareTransaction.create!(user_id: sender.id, amount: -amount, transaction_type: "send", target_user_id: target.id)
-      ShareTransaction.create!(user_id: target.id, amount: amount, transaction_type: "receive", target_user_id: sender.id)
-    end
-
-    render_json_dump(success: true, new_balance: sender.shares_balance)
-  end
-
-  private
-
-  def load_user
-    @user = User.find_by_username(params[:username])
-    raise Discourse::NotFound unless @user
+    render_json_error("Not implemented"), status: 501
   end
 end
