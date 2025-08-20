@@ -13,13 +13,10 @@ export default apiInitializer("1.16.0", (api) => {
   if (api.addUserNavigation) {
     api.addUserNavigation("shares", {
       route: "user.shares",
-      title: "Aandelen", // Misschien een Nederlandse titel?
+      title: "Aandelen",
       // Alleen zichtbaar op je eigen profiel (pas aan naar wens)
-      
     });
-  }// assets/javascripts/discourse/api-initializers/shares-initializer.js (of hoe je het ook noemt)
-import { apiInitializer } from "discourse/lib/api";
-
+  }
 
   // 3) Item in de avatar dropdown (nieuwere API in 3.5)
   // Guarded zodat het op builds zonder deze API niet crasht.
