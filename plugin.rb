@@ -31,7 +31,7 @@ after_initialize do
   
   Discourse::Application.routes.prepend do
     constraints(username: RouteFormat.username) do
-      get "u/:username/shares"  => "shares#index"
+      get "u/:username/shares" => "shares#index", defaults: { format: :json }
       get "users/:username/shares" => "shares#index"
     end
 
