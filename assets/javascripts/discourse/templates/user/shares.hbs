@@ -1,14 +1,17 @@
-{{! Dit is de template voor de /u/:username/shares route }}
+{{! Dit is de template voor het 'shares' tabblad op een gebruikersprofiel }}
 
-<h1>Mijn Aandelen</h1>
-<p>
-  Dit is de custom shares-pagina voor de gebruiker.
-  De data komt straks uit de `SharesController`.
-</p>
+<div class="user-shares-container">
+  <h1>Aandelen van {{model.owner_username}}</h1>
+  <p>Dit is de custom content die wordt geladen vanuit de aandelen-plugin.</p>
 
-{{! Hier kun je later de data uit je JSON-response weergeven }}
-{{#each model.shares as |share|}}
-  <div>
-    <strong>{{share.name}}:</strong> {{share.amount}} stuks
-  </div>
-{{/each}}
+  <hr>
+
+  <h2>Overzicht:</h2>
+  <ul>
+    {{#each model.shares as |share|}}
+      <li>
+        <strong>{{share.stock_name}}:</strong> {{share.quantity}} stuks
+      </li>
+    {{/each}}
+  </ul>
+</div>
