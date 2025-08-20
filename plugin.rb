@@ -28,6 +28,8 @@ after_initialize do
   require_relative "app/controllers/shares_controller"
 
   # ---- IMPORTANT: PREPEND so we beat the built-in /u/:username/:section route
+  Discourse.allow_unhandled_routes << "/u/%{username}/shares"
+
   Discourse::Application.routes.prepend do
     constraints(username: RouteFormat.username) do
       get "u/:username/shares"  => "shares#index"

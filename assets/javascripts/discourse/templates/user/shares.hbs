@@ -1,12 +1,14 @@
-<h2>{{this.model.user.username}}'s Shares</h2>
+{{! Dit is de template voor de /u/:username/shares route }}
 
-<UserSharesBalance @balance={{this.model.balance}} />
+<h1>Mijn Aandelen</h1>
+<p>
+  Dit is de custom shares-pagina voor de gebruiker.
+  De data komt straks uit de `SharesController`.
+</p>
 
-<h3>Transactions</h3>
-<ul>
-  {{#each this.model.transactions as |t|}}
-    <li>{{t.amount}} → {{t.to_username}} ({{t.created_at}})</li>
-  {{/each}}
-</ul>
-
-<UserSharesSend @user={{this.model.user}} @balance={{this.model.balance}} />
+{{! Hier kun je later de data uit je JSON-response weergeven }}
+{{#each model.shares as |share|}}
+  <div>
+    <strong>{{share.name}}:</strong> {{share.amount}} stuks
+  </div>
+{{/each}}
