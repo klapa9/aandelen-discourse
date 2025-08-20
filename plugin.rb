@@ -18,13 +18,6 @@ after_initialize do
 
   require_dependency "application_controller"
 
-  # If you want, keep your models/serializers requires here. They’re not needed
-  # for the simple HTML smoke-test, but harmless to keep.
-  # require_relative "app/models/user_share"
-  # require_relative "app/models/share_transaction"
-  # require_relative "app/serializers/user_share_serializer"
-  # require_relative "app/serializers/share_transaction_serializer"
-
   require_relative "app/controllers/shares_controller"
 
   # ---- IMPORTANT: PREPEND so we beat the built-in /u/:username/:section route

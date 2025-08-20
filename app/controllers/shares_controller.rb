@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ::SharesController < ::ApplicationController
-  requires_plugin ::AandelenDiscourse
+  # weg gelaten omdat het niet echt nodig is en een error veroorzaakte: requires_plugin ::AandelenDiscourse
 
   def index
     # Gebruik de standaard Discourse helper om een gebruiker te vinden.
