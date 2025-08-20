@@ -2,6 +2,7 @@ import { apiInitializer } from "discourse/lib/api";
 
 export default apiInitializer("1.16.0", (api) => {
   // 1) Route onder /u/:username
+  console.log("shares api initializer loaded!")
   // Let op: pad is relatief aan /u/:username
   if (api.addRoute) {
     api.addRoute("user.shares", { path: "/shares" });
