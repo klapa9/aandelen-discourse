@@ -1,17 +1,10 @@
-{{! Dit is de template voor het 'shares' tabblad op een gebruikersprofiel }}
-
-<div class="user-shares-container">
-  <h1>Aandelen van {{model.owner_username}}</h1>
-  <p>Dit is de custom content die wordt geladen vanuit de aandelen-plugin.</p>
-
-  <hr>
-
-  <h2>Overzicht:</h2>
+{{! Dit is de definitieve template voor de aandelen-pagina }}
+<div class="user-shares-content">
+  <h1>Aandelen van {{this.model.owner_username}}</h1>
+  <p>Hieronder staat het overzicht van de aandelen.</p>
   <ul>
-    {{#each model.shares as |share|}}
-      <li>
-        <strong>{{share.stock_name}}:</strong> {{share.quantity}} stuks
-      </li>
+    {{#each this.model.shares as |share|}}
+      <li>{{share.stock_name}}: {{share.quantity}}</li>
     {{/each}}
   </ul>
 </div>
