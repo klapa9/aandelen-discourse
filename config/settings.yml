@@ -1,0 +1,4 @@
+# config/settings.yml
+shares_enabled:
+  default: true
+  client: true
