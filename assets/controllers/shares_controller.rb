@@ -1,25 +1,15 @@
-# app/controllers/shares_controller.rb
+# frozen_string_literal: true
 
 class ::SharesController < ::ApplicationController
-  requires_plugin ::AandelenDiscourse
-  before_action :ensure_logged_in
-
   def index
-    user = User.find_by_username!(params[:username])
-
-    # Voorbeeld: haal de aandelen van de gebruiker op
-    # user_shares = UserShare.where(user_id: user.id)
-
-    # Gebruik een Serializer voor de 'nette' manier,
-    # maar voor nu is een simpele JSON-dump voldoende.
-    render json: {
-      message: "Data voor #{user.username}",
+    # We doen GEEN database lookups of guardian checks.
+    # We sturen alleen simpele, vaste data terug om te bewijzen dat de controller werkt.
+    render json: success_json({
+      owner_username: params[:username], # We gebruiken gewoon de parameter uit de URL
       shares: [
-        { name: "Aandeel A", amount: 10 },
-        { name: "Aandeel B", amount: 5 }
+        { stock_name: "Test Aandeel", quantity: 123 },
+        { stock_name: "Succes Inc.", quantity: 456 }
       ]
-    }
+    })
   end
-
-  # ... je andere 'show' en 'send_shares' acties blijven zoals ze zijn
 end
