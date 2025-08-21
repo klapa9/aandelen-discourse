@@ -1,7 +1,5 @@
-{{! Dit is de definitieve template voor de aandelen-pagina }}
 <div class="user-shares-content">
   <h1>Aandelen van {{this.model.owner_username}}</h1>
-  <p>Hieronder staat het overzicht van de aandelen.</p>
   <ul>
     {{#each this.model.shares as |share|}}
       <li>{{share.stock_name}}: {{share.quantity}}</li>

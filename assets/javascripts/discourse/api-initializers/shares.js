@@ -6,6 +6,5 @@ export default apiInitializer("1.0", (api) => {
   api.addUserNavigation("shares", {
     route: "user.shares",
     title: "Aandelen",
-    // Voeg eventueel de 'hideWhen' later weer toe als alles werkt
   });
 });
