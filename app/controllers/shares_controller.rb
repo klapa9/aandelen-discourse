@@ -7,7 +7,7 @@ class ::SharesController < ::ApplicationController
     # Gebruik de standaard Discourse helper om een gebruiker te vinden.
     # Dit is veiliger en lost het 404-probleem op.
     user = find_user_from_params
-    guardian.ensure_can_see_user_profile!(user) # Zeker weten dat we het profiel mogen zien
+    #guardian.ensure_can_see_user_profile!(user) # Zeker weten dat we het profiel mogen zien
 
     example_shares_data = [
       { stock_name: "Discourse Inc.", quantity: 100 },
