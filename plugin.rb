@@ -6,7 +6,7 @@
 enabled_site_setting :shares_enabled
 
 after_initialize do
-  require_relative "app/controllers/shares_controller"
+  require_relative "app/controllers/shares_controller.rb"
 
   Discourse::Application.routes.prepend do
     get "u/:username/shares" => "shares#index", constraints: { username: RouteFormat.username }, defaults: { format: :json }
