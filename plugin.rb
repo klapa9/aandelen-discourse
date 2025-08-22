@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
-# name: aandelen-plugin
+# name: aandelen-discourse
 # about: Een plugin om een aandelen tab toe te voegen aan het gebruikersprofiel.
 # version: 0.1
-# authors: Jouw Naam
+# authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
 
-register_asset "aandelen-discourse\app\controllers\shares_controller.rb"
-register_asset "aandelen-discourse\assets\javascripts\discourse\templates\user\shares.hbs"
+# Registreer alleen de client-side template. Gebruik forward slashes.
+# Het pad is relatief aan de hoofdmap van je plugin.
+register_asset "assets/javascripts/discourse/templates/user/shares.hbs"
 
 after_initialize do
-  add_user_card_tab(:aandelen_tab, component: "aandelen", title: "Aandelen", icon: "chart-line")
+  # Zorg ervoor dat de 'component' naam overeenkomt met het pad en de naam van de template.
+  # De map 'user' is onderdeel van het pad, dus we nemen die mee.
+  add_user_card_tab(:aandelen_tab, component: "user/shares", title: "Aandelen", icon: "chart-line")
 end
