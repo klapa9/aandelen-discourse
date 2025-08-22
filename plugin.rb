@@ -6,5 +6,3 @@
 # authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
 
-
-enabled_site_setting :aandelen_plugin_enabled
