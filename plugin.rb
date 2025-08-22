@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# name: aandelen-plugin
+# name: aandelen-discourse
 # about: Een plugin om een aandelen tab toe te voegen aan het gebruikersprofiel.
 # version: 0.1
-# authors: Jouw Naam
-# url: https://github.com/klapaa9/aandelen-discourse
+# authors: klapa9
+# url: https://github.com/klapa9/aandelen-discourse
 
 # Er is hier GEEN register_asset voor de .hbs-template meer nodig.
 # Discourse laadt dit automatisch.
