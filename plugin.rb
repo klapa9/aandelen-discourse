@@ -6,5 +6,5 @@
 # authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
 
-# Er is hier GEEN register_asset voor de .hbs-template meer nodig.
-# Discourse laadt dit automatisch.
+
+enabled_site_setting :aandelen_plugin_enabled

@@ -1,0 +1,13 @@
+<div class="aandelen-container">
+  <h3>Aandelen van {{this.user.username}}</h3>
+  <p>
+    Deze gebruiker heeft momenteel
+    <span class="aandelen-count">{{this.aandelenAantal}}</span>
+    aandelen.
+  </p>
+</div>
+
+{{!--
+  'this.user.username' komt van de 'user' getter in het .js bestand.
+  'this.aandelenAantal' komt van de @tracked property.
+--}}
