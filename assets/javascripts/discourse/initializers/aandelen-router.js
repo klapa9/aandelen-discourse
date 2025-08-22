@@ -1,13 +1,11 @@
 import { addPluginRouter } from "discourse/lib/router";
 
 export default {
-  name: "aandelen-plugin-router",
-
-  initialize(container) {
+  name: "aandelen-router",
+  initialize() {
     addPluginRouter("main", (router) => {
-      // Dit voegt de /aandelen route toe aan de user paginas
       router.route("user", { path: "/u/:username" }, function () {
-        this.route("aandelen");
+        this.route("aandelen", { path: "/aandelen" });
       });
     });
   },
