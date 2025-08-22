@@ -1,14 +1,14 @@
-# name: aandelen-discourse
-# about: A plugin to manage user shares and transactions
-# version: 1.0.0
-# authors: klapa9
+# frozen_string_literal: true
 
-enabled_site_setting :shares_enabled
+# name: aandelen-plugin
+# about: Een plugin om een aandelen tab toe te voegen aan het gebruikersprofiel.
+# version: 0.1
+# authors: Jouw Naam
+# url: https://github.com/klapa9/aandelen-discourse
+
+register_asset "stylesheets/aandelen.scss"
+register_asset "javascripts/discourse/templates/mobile/aandelen.hbs"
 
 after_initialize do
-  require_relative "app/controllers/shares_controller.rb"
-
-  Discourse::Application.routes.prepend do
-    get "u/:username/shares" => "shares#index", constraints: { username: RouteFormat.username }, defaults: { format: :json }
-  end
+  add_user_card_tab(:aandelen_tab, component: "aandelen", title: "Aandelen", icon: "chart-line")
 end
