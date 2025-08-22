@@ -6,8 +6,8 @@
 # authors: Jouw Naam
 # url: https://github.com/klapa9/aandelen-discourse
 
-register_asset "stylesheets/aandelen.scss"
-register_asset "javascripts/discourse/templates/mobile/aandelen.hbs"
+register_asset "aandelen-discourse\app\controllers\shares_controller.rb"
+register_asset "aandelen-discourse\assets\javascripts\discourse\templates\user\shares.hbs"
 
 after_initialize do
   add_user_card_tab(:aandelen_tab, component: "aandelen", title: "Aandelen", icon: "chart-line")
