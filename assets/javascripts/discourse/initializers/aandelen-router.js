@@ -1,4 +1,4 @@
-import { addPluginRouter } from "discourse/lib/plugin-api"; // Corrected import path
+import  addPluginRouter  from "discourse/lib/plugin-api"; // Corrected import path
 
 export default {
   name: "aandelen-router",
