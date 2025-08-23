@@ -1,5 +1,4 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { getOwner } from "@ember/application";
 import I18n from "I18n";
 
 export default {
@@ -7,8 +6,8 @@ export default {
   after: "inject-objects",
 
   initialize(container) {
-    // This is the corrected line. getOwner needs the initializer's context 'this'.
-    const router = getOwner(this).lookup("router:main");
+    // This is the corrected line. We use the 'container' argument directly.
+    const router = container.lookup("router:main");
     if (router.location.implementation.name !== "none") {
       router.map(function () {
         this.route("user", { path: "/u/:username" }, function () {
