@@ -1,18 +1,24 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { getOwner } from "@ember/application";
 import I18n from "I18n";
 
 export default {
-  name: "aandelen-plugin-initializer",
-  initialize() {
-    withPluginApi("1.0.0", (api) => {
-      // Step 1: Define the new route for /u/username/aandelen
-      api.addPluginRouter("main", (router) => {
-        router.route("user", { path: "/u/:username" }, function () {
+  name: "aandelen-features",
+  after: "inject-objects", // Zorgt ervoor dat onze code op het juiste moment draait
+
+  initialize(container) {
+    // DEEL 1: Definieer de route met de standaard Ember Router
+    const router = getOwner(container).lookup("router:main");
+    if (router.location.implementation.name !== "none") { // Voorkom errors in tests
+      router.map(function () {
+        this.route("user", { path: "/u/:username" }, function () {
           this.route("aandelen", { path: "/aandelen" });
         });
       });
+    }
 
-      // Step 2: Add the navigation link to the user's profile menu
+    // DEEL 2: Voeg de navigatielink toe met de Plugin API
+    withPluginApi("1.0.0", (api) => {
       api.modifyClass("model:user", {
         pluginId: "AandelenPlugin",
         navItems: function () {
