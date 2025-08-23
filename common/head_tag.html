@@ -1,0 +1,21 @@
+<script type="text/x-handlebars" data-template-name="/connectors/user-nav/aandelen-nav-link">
+  <li class="aandelen-nav-item">
+    <a href="/u/{{view.user.username}}/aandelen" data-ember-action="" class="ember-view">
+      {{d-icon "coins"}} {{i18n "aandelen.title"}}
+    </a>
+  </li>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="/connectors/user-activity-bottom/aandelen-content">
+  {{#if (eq view.about.action 'aandelen')}}
+    <div class="aandelen-content-pane">
+      <h3>Aandelen van {{view.user.username}}</h3>
+      <p>
+        Deze gebruiker heeft momenteel <strong>500</strong> aandelen.
+      </p>
+      <br>
+      <p><i>(Dit is dummy data. De volgende stap is om dit te verbinden met echte backend data.)</i></p>
+    </div>
+  {{/if}}
+</script>
