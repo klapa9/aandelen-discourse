@@ -4,12 +4,12 @@ import I18n from "I18n";
 
 export default {
   name: "aandelen-features",
-  after: "inject-objects", // Zorgt ervoor dat onze code op het juiste moment draait
+  after: "inject-objects",
 
   initialize(container) {
-    // DEEL 1: Definieer de route met de standaard Ember Router
-    const router = getOwner(container).lookup("router:main");
-    if (router.location.implementation.name !== "none") { // Voorkom errors in tests
+    // This is the corrected line. getOwner needs the initializer's context 'this'.
+    const router = getOwner(this).lookup("router:main");
+    if (router.location.implementation.name !== "none") {
       router.map(function () {
         this.route("user", { path: "/u/:username" }, function () {
           this.route("aandelen", { path: "/aandelen" });
@@ -17,7 +17,6 @@ export default {
       });
     }
 
-    // DEEL 2: Voeg de navigatielink toe met de Plugin API
     withPluginApi("1.0.0", (api) => {
       api.modifyClass("model:user", {
         pluginId: "AandelenPlugin",
