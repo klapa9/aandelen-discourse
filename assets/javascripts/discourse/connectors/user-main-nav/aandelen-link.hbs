@@ -1,9 +1,9 @@
 <li>
-  <d-link
-    @route="user.aandelen"
-    @model={{this.model}}
-    @label="aandelen.title"
-    @icon="coins"
+  {{#d-link
+    route="user.aandelen"
+    model=this.model
     class="user-nav-link"
-  />
+  }}
+    {{d-icon "coins"}} {{i18n "aandelen.title"}}
+  {{/d-link}}
 </li>
