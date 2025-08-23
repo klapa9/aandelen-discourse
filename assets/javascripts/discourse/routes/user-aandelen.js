@@ -1,7 +1,11 @@
 import UserActivityRoute from "discourse/routes/user-activity";
 
-export default UserActivityRoute.extend({
+export default class UserAandelenRoute extends UserActivityRoute {
   model() {
-    return { message: "Hier komen de aandelen van deze gebruiker." };
+    const user = this.modelFor("user");
+    return {
+      username: user.username,
+      message: "Hier komen de aandelen van deze gebruiker."
+    };
   }
-});
+}
