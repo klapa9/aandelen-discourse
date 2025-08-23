@@ -1,5 +1,9 @@
 <li>
-  <a href="?action=aandelen" class="user-nav-link" data-ember-action="false">
-    {{d-icon "coins"}} Aandelen
-  </a>
+  <d-link
+    @route="user.aandelen"
+    @model={{this.model}}
+    @label="aandelen.title"
+    @icon="coins"
+    class="user-nav-link"
+  />
 </li>
