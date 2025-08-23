@@ -1,12 +1,9 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default {
-  name: "aandelen-initializer",
+  name: "connect-aandelen-tab",
   initialize() {
-    withPluginApi("0.1", (api) => {
-      // Both functions are called on the 'api' object here.
-      api.addExtraUserRoute("aandelen");
-
+    withPluginApi("1.0.0", (api) => {
       api.connectToPluginOutlet(
         "user-nav",
         "aandelen-user-nav-item"
