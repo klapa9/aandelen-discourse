@@ -1,8 +1,8 @@
-import { apiInitializer } from "discourse/lib/plugin-api"; // Corrected: named import
+import { apiInitializer } from "discourse/lib/api"; // The final correction is here
 
 export default apiInitializer("0.1", (api) => {
   api.connectToPluginOutlet(
-    "user-nav", 
+    "user-nav",
     "aandelen-user-nav-item"
   );
 });
