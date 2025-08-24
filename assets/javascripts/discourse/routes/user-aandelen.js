@@ -1,11 +1,16 @@
-import UserActivityRoute from "discourse/routes/user-activity";
+import DiscourseRoute from "discourse/routes/discourse";
+import { ajax } from "discourse/lib/ajax";
 
-export default class UserAandelenRoute extends UserActivityRoute {
+export default DiscourseRoute.extend({
   model() {
+    // Haal het model (de gebruiker) van de bovenliggende route op.
     const user = this.modelFor("user");
-    return {
-      username: user.username,
-      message: "Hier komen de aandelen van deze gebruiker."
-    };
-  }
-}
+    const username = user.get("username");
+
+    // Maak de API-call naar onze custom controller endpoint.
+    // De .json extensie is belangrijk!
+    return ajax(`/u/${username}/aandelen.json`).then((result) => {
+      return result;
+    });
+  },
+});
