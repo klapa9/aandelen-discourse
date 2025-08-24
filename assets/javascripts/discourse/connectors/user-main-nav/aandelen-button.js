@@ -1,10 +1,9 @@
 import Component from "@ember/component";
-import { inject as service } from "@ember/service";
+import { getOwner } from "@ember/application";
 
 export default Component.extend({
-  modal: service(),
-
   openModal() {
-    this.modal.show(aandelenModal);
+    const modalService = getOwner(this).lookup("service:modal");
+    modalService.show("aandelen-modal");
   },
 });
