@@ -6,10 +6,13 @@
 # authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
 
-load File.expand_path('./controllers/aandelen_controller.rb', __FILE__)
-load File.expand_path('./serializers/aandelen_serializer.rb', __FILE__)
+after_initialize do
+  # Gebruik __dir__ voor een robuuster pad. Dit verwijst naar de map waarin plugin.rb staat.
+  load File.expand_path("controllers/aandelen_controller.rb", __dir__)
+  load File.expand_path("serializers/aandelen_serializer.rb", __dir__)
 
-Discourse::Application.routes.append do
-  # Registreert de GET request voor de aandelen pagina en linkt het aan onze controller action
-  get "/u/:username/aandelen" => "aandelen#show"
+  # Voeg de route toe binnen de Discourse-applicatie context
+  Discourse::Application.routes.append do
+    get "/u/:username/aandelen" => "aandelen#show"
+  end
 end
