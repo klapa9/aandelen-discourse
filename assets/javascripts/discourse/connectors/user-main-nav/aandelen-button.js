@@ -10,7 +10,7 @@ export default {
         return {
           openModal() {
             modalService.show("aandelen-modal");
-          }
+          },
         };
       });
     });
