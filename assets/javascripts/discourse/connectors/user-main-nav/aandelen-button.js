@@ -7,9 +7,11 @@ export default {
       api.decorateConnector("user-main-nav", "aandelen-button", (helper) => {
         const modalService = helper.container.lookup("service:modal");
 
-        // Return een object dat beschikbaar is in de template
+        // Arrow function zodat 'this' correct wordt gebonden
         return {
-          openModal: () => modalService.show("aandelen-modal")
+          openModal: () => {
+            modalService.show("aandelen-modal");
+          }
         };
       });
     });
