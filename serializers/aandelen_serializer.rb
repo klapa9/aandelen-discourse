@@ -1,4 +1,4 @@
 class AandelenSerializer < ApplicationSerializer
-  # Definieer hier de attributen (data velden) die je wilt teruggeven
-  attributes :user_id, :aantal_aandelen
+  # Voeg 'id' toe aan de attributen
+  attributes :id, :aantal_aandelen
 end
