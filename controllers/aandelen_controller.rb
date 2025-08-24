@@ -13,8 +13,8 @@ class AandelenController < ApplicationController
     aandelen_data = { user_id: user.id, aantal_aandelen: 123 } # Voorbeeld data
 
     # Geef de data terug in JSON formaat, gebruik makend van onze serializer
-    #render json: AandelenSerializer.new(aandelen_data, root: false)
-    render json: { name: "donut", description: "delicious!" }
+    render json: AandelenSerializer.new(aandelen_data, root: false)
+    #render json: { name: "donut", description: "delicious!" }
 
   end
 end
