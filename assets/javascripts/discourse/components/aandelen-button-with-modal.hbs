@@ -1,0 +1,16 @@
+<DButton
+  @translatedLabel="Aandelen"
+  @action={{this.openModal}}
+  class="btn-primary"
+/>
+
+{{#if this.modalIsVisible}}
+  <DModal @title="Aandelen" @closeModal={{this.closeModal}}>
+    <:body>
+      <p>Dit is de inhoud van de aandelen modal.</p>
+    </:body>
+    <:footer>
+      <DButton @translatedLabel="Sluiten" @action={{this.closeModal}} />
+    </:footer>
+  </DModal>
+{{/if}}
