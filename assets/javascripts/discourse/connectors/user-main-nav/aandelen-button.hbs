@@ -1,5 +1,5 @@
 <DButton
   @label="Aandelen"
-  @action={{this.openModal}}
+  {{on "click" (fn this.actions.openModal)}}
   class="btn-primary"
 />
