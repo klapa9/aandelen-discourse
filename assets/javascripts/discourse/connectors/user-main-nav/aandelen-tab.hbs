@@ -1,5 +1,5 @@
-<li role="tab">
-  {{#link-to "user.aandelen" this.user}}
-    Aandelen
-  {{/link-to}}
+<li class="hidden-for-anon">
+  {{#user-nav-item route='user.aandelen' label='Aandelen'}}
+    <d-icon name="chart-line" />
+  {{/user-nav-item}}
 </li>
