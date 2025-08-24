@@ -1,0 +1,12 @@
+{{!-- Dit is de standaard opmaak voor een Discourse modal --}}
+<DModal @title="Aandelenoverzicht van {{this.model.gebruiker}}" @closeModal={{@closeModal}}>
+  <div class="modal-body">
+    <p>Deze gebruiker heeft: <strong>{{this.model.aantal_aandelen}}</strong> aandelen.</p>
+    <p><em>{{this.model.bericht}}</em></p>
+
+    {{!-- Hier kun je later je formulier toevoegen --}}
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" {{action @closeModal}}>Sluiten</button>
+  </div>
+</DModal>
