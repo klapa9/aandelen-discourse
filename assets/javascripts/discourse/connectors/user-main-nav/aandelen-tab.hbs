@@ -1,5 +1,6 @@
 <li class="hidden-for-anon">
-  {{#user-nav-item route='user.aandelen' model=user label='Aandelen'}}
+  <a href="/u/{{user.username}}/aandelen.json" target="_blank" class="user-nav-link">
     <d-icon name="chart-line" />
-  {{/user-nav-item}}
+    <span>Aandelen (JSON)</span>
+  </a>
 </li>
