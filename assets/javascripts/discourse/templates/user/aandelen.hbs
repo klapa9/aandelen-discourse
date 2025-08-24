@@ -1,5 +1,8 @@
-<div class="aandelen-container">
-  <h2>Aandelenoverzicht</h2>
-  <p>De gebruiker van dit tabblad heeft: <strong>x</strong> aandelen.</p>
-  {{!-- Hier kun je later complexere data en componenten toevoegen --}}
-</div>
+{{#d-section pageClass="aandelen-page"}}
+  <div class="aandelen-container">
+    <h2>Aandelenoverzicht van {{user.username}}</h2>
+
+    {{!-- Het 'model' hier is het resultaat van onze server-side controller --}}
+    <p>Deze gebruiker heeft: <strong>{{model.aantal_aandelen}}</strong> aandelen.</p>
+  </div>
+{{/d-section}}
