@@ -1,8 +1,17 @@
+{{!-- Desktop: icoon + label --}}
+<DButton
+  @icon="coins"
+  @translatedLabel="Aandelen"
+  @action={{this.openModal}}
+  class="btn-primary desktop-only"
+/>
+
+{{!-- Mobiel: alleen icoon --}}
 <DButton
   @icon="coins"
   @title="Aandelen"
   @action={{this.openModal}}
-  class="btn-icon"
+  class="btn-icon mobile-only"
 />
 
 {{#if this.modalIsVisible}}
