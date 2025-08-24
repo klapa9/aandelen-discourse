@@ -4,15 +4,15 @@ export default {
   name: "aandelen-button-init",
   initialize() {
     withPluginApi("0.8.7", (api) => {
-      api.decorateConnector("user-main-nav", "aandelen-button", (helper) => ({
-        actions: {
+      api.decorateConnector("user-main-nav", "aandelen-button", (helper) => {
+        const modalService = helper.container.lookup("service:modal");
+
+        return {
           openModal() {
-            const modalService = helper.container.lookup("service:modal");
-            // Gebruik de string-naam van je modal (zonder import)
             modalService.show("aandelen-modal");
-          },
-        },
-      }));
+          }
+        };
+      });
     });
   },
 };
