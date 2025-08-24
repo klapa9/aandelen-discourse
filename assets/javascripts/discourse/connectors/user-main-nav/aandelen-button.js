@@ -1,6 +1,4 @@
-// assets/javascripts/discourse/connectors/user-main-nav/aandelen-button.js
 import { withPluginApi } from "discourse/lib/plugin-api";
-import AandelenModal from "discourse/components/aandelen-modal"; // als je de .js hebt
 
 export default {
   name: "aandelen-button-init",
@@ -10,11 +8,11 @@ export default {
         actions: {
           openModal() {
             const modalService = helper.container.lookup("service:modal");
-            // toon de modal
-            modalService.show(AandelenModal);
-          }
-        }
+            // Gebruik de string-naam van je modal (zonder import)
+            modalService.show("aandelen-modal");
+          },
+        },
       }));
     });
-  }
+  },
 };
