@@ -2,19 +2,19 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { ajax } from "discourse/lib/ajax";
-import CurrentUser from "discourse/models/current-user";
 
 export default class AandelenButtonWithModal extends Component {
   @tracked modalIsVisible = false;
   @tracked amount = 1;
 
   get recipient() {
-    // In user-profile context: de "model" is de user van het profiel
+    // De gebruiker van het profiel dat bekeken wordt
     return this.args.model;
   }
 
   get sender() {
-    return CurrentUser.current();
+    // Huidige ingelogde gebruiker
+    return this.currentUser;
   }
 
   @action
