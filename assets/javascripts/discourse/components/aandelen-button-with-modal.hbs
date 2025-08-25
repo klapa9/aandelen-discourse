@@ -1,18 +1,10 @@
-{{!-- Mobiel: alleen icoon --}}
 <DButton
   @icon="balance-scale"
-  @title="Aandelen"
   @action={{this.openModal}}
-  class="btn-icon mobile-only"
-/>
-
-{{!-- Desktop: icoon + label --}}
-<DButton
-  @icon="balance-scale"
-  @translatedLabel="Aandelen"
-  @action={{this.openModal}}
-  class="btn-primary desktop-only"
-/>
+  class="btn-primary"
+>
+  <span class="desktop-only">Aandelen</span>
+</DButton>
 
 {{#if this.modalIsVisible}}
   <DModal @title="Aandelen versturen" @closeModal={{this.closeModal}}>
