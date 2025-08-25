@@ -1,13 +1,16 @@
 class AandelenController < ApplicationController
-  def show
-    user = User.find_by_username(params[:username])
-    raise Discourse::NotFound if user.nil?
+  requires_plugin "aandelen-discourse"
 
-    # Maak een simpele hash en geef deze direct terug als JSON
-    render json: {
-      gebruiker: user.username,
-      aantal_aandelen: 123,
-      bericht: "Dit is een simpele JSON-respons."
-    }
+  before_action :ensure_logged_in
+
+  def send
+    from = params[:from]
+    to = params[:to]
+    amount = params[:amount].to_i
+
+    # hier zou je DB-logica doen
+    # bv. een AandelenTransaction model opslaan
+
+    render json: { success: true }
   end
 end
