@@ -8,8 +8,7 @@ export default class AandelenButtonWithModal extends Component {
   @tracked amount = 1;
 
   get recipient() {
-    // De gebruiker van het profiel dat bekeken wordt
-    return this.args.model;
+    return this.args.user; // niet this.args.model
   }
 
   get sender() {
