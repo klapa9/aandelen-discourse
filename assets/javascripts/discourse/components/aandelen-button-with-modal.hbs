@@ -15,12 +15,32 @@
 />
 
 {{#if this.modalIsVisible}}
-  <DModal @title="Aandelen" @closeModal={{this.closeModal}}>
+  <DModal @title="Aandelen versturen" @closeModal={{this.closeModal}}>
     <:body>
-      <p>Dit is de inhoud van de aandelen modal.</p>
+      <p>
+        Je verstuurt aandelen naar
+        <b>{{this.recipient.username}}</b>
+      </p>
+
+      <label for="amount">Aantal aandelen:</label>
+      <Input
+        @type="number"
+        @value={{this.amount}}
+        min="1"
+        id="amount"
+      />
     </:body>
+
     <:footer>
-      <DButton @translatedLabel="Sluiten" @action={{this.closeModal}} />
+      <DButton
+        @translatedLabel="Verstuur"
+        @action={{this.sendShares}}
+        class="btn-primary"
+      />
+      <DButton
+        @translatedLabel="Annuleer"
+        @action={{this.closeModal}}
+      />
     </:footer>
   </DModal>
 {{/if}}
