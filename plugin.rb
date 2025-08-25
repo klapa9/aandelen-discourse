@@ -10,7 +10,7 @@ after_initialize do
   load File.expand_path("controllers/aandelen_controller.rb", __dir__)
 
   Discourse::Application.routes.append do
-    #get "/u/:username/aandelen" => "aandelen#show"
+    get  "/aandelen/balance" => "aandelen#balance"
     post "/aandelen/send" => "aandelen#send"
   end
 end

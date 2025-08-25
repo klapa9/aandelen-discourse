@@ -1,5 +1,5 @@
 <DButton
-  @icon="handshake"
+  @icon="chart-line"
   @action={{this.openModal}}
   class="btn-primary"
 >
@@ -10,15 +10,17 @@
   <DModal @title="Aandelen versturen" @closeModal={{this.closeModal}}>
     <:body>
       <p>
-        {{log this.recipient}}
-        Je verstuurt aandelen naar <b>{{this.recipient.username}}</b>
+        Je verstuurt aandelen naar <b>{{this.recipient.username}}</b>.
       </p>
+
+      <p>Je huidige aantal aandelen: <b>{{this.balance}}</b></p>
 
       <label for="amount">Aantal aandelen:</label>
       <Input
         @type="number"
         @value={{this.amount}}
         min="1"
+        max={{this.balance}}
         id="amount"
       />
     </:body>
