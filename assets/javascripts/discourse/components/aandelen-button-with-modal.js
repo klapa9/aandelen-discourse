@@ -8,26 +8,24 @@ export default class AandelenButtonWithModal extends Component {
   @tracked amount = 1;
 
   get recipient() {
-    return this.args.user; // niet this.args.model
+    // de user van het profiel dat bekeken wordt
+    return this.args.outletArgs?.model;
   }
 
   get sender() {
-    // Huidige ingelogde gebruiker
+    // de ingelogde gebruiker
     return this.currentUser;
   }
 
-  @action
-  openModal() {
+  @action openModal() {
     this.modalIsVisible = true;
   }
 
-  @action
-  closeModal() {
+  @action closeModal() {
     this.modalIsVisible = false;
   }
 
-  @action
-  async sendShares() {
+  @action async sendShares() {
     try {
       await ajax("/aandelen/send", {
         type: "POST",
