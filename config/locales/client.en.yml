@@ -2,12 +2,13 @@ en:
   js:
     aandelen_discourse:
       title: "Shares"
-      balance: "Your current shares"
+      open_modal: "⚖️ Shares"
       send_to: "You are about to send shares to:"
       amount: "Number of shares:"
       transactions: "Recent transactions"
       sent: "Sent to"
       received: "Received from"
-      shares: "shares"
+      balance: "Your current shares"
       send: "Send"
       cancel: "Cancel"
+      shares: "shares"

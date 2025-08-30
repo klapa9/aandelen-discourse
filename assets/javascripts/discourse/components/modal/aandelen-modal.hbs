@@ -2,11 +2,10 @@
   <:body>
     <p>{{i18n "aandelen_discourse.balance"}}: <b>{{this.balance}}</b></p>
 
-    {{!-- Alleen verzenden als dit niet jezelf is --}}
     {{#if (not this.isSelf)}}
-      <p>{{i18n "aandelen_discourse.send_to"}} <strong>{{@model.user.username}}</strong></p>
+      <p>{{i18n "aandelen_discourse.to"}} <strong>{{@model.user.username}}</strong></p>
 
-      <label for="aandelen-amount">{{i18n "aandelen_discourse.amount"}}</label>
+      <label for="aandelen-amount">{{i18n "aandelen_discourse.shares"}}</label>
       <input
         id="aandelen-amount"
         type="number"
@@ -17,18 +16,17 @@
       />
     {{/if}}
 
-    {{!-- Alleen transacties tonen als het jezelf is --}}
     {{#if this.isSelf}}
       <hr>
-      <h4>{{i18n "aandelen_discourse.transactions"}}</h4>
+      <h4>{{i18n "aandelen_discourse.recent_transactions"}}</h4>
       <ul>
         {{#each this.transactions as |tx|}}
           <li>
             {{tx.date}} -
             {{#if (eq tx.type "sent")}}
-              {{i18n "aandelen_discourse.sent"}} <b>{{tx.user}}</b>
+              {{i18n "aandelen_discourse.to"}} <b>{{tx.user}}</b>
             {{else}}
-              {{i18n "aandelen_discourse.received"}} <b>{{tx.user}}</b>
+              {{i18n "aandelen_discourse.from"}} <b>{{tx.user}}</b>
             {{/if}}
             : <b>{{tx.amount}}</b> {{i18n "aandelen_discourse.shares"}}
           </li>
@@ -39,8 +37,9 @@
 
   <:footer>
     {{#if (not this.isSelf)}}
-      <DButton @label={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
+      <DButton @translatedLabel={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
     {{/if}}
-    <DButton @label={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+    <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
   </:footer>
+
 </DModal>

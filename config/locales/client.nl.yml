@@ -2,11 +2,13 @@ nl:
   js:
     aandelen_discourse:
       title: "Aandelen"
-      open_modal: "Open aandelen"
+      open_modal: "⚖️ aandelen"
+      send_to: "Je staat op het punt aandelen te versturen naar:"
+      amount: "Aantal aandelen:"
+      transactions: "Recente transacties"
+      sent: "Naar"
+      received: "Ontvangen van"
+      balance: "Je huidige aantal aandelen"
       send: "Verstuur"
       cancel: "Annuleer"
-      balance: "Je huidige aantal aandelen"
-      recent_transactions: "Recente transacties"
-      to: "Naar"
-      from: "Ontvangen van"
       shares: "aandelen"
