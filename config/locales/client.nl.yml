@@ -1,10 +1,11 @@
 nl:
   js:
     aandelen_discourse:
-      title: "Aandelen"
+      title_self: "De aandelen van %{username}"
+      title_send: "Aandelen versturen"
       open_modal: "⚖️ aandelen"
       balance: "Je huidige aantal aandelen"
-      to: "Naar"
+      to: "Verstuur aandelen naar"
       from: "Ontvangen van"
       shares: "aandelen"
       recent_transactions: "Recente transacties"

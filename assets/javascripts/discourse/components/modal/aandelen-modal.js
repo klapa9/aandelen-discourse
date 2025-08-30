@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
+import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { getOwner } from "@ember/application";
-import { action } from "@ember/object";
 import { ajax } from "discourse/lib/ajax";
 
 export default class AandelenModal extends Component {
@@ -13,17 +13,17 @@ export default class AandelenModal extends Component {
   constructor() {
     super(...arguments);
 
-    // currentUser ophalen via owner
     const currentUser = getOwner(this).lookup("service:current-user");
     this.isSelf = currentUser.id === this.args.model.user.id;
 
-    // Alleen balance ophalen
     this.loadBalance();
+    if (this.isSelf) this.loadTransactions();
+  }
 
-    // Alleen transacties ophalen als je jezelf bekijkt
-    if (this.isSelf) {
-      this.loadTransactions();
-    }
+  get modalTitle() {
+    return this.isSelf
+      ? I18n.t("aandelen_discourse.title_self", { username: this.args.model.user.username })
+      : I18n.t("aandelen_discourse.title_send");
   }
 
   @action
@@ -38,27 +38,20 @@ export default class AandelenModal extends Component {
 
   async loadTransactions() {
     const resp = await ajax("/aandelen/transactions.json");
-    console.log("🚀 Transacties response:", resp);
-    this.transactions = resp.aandelen || [];
+    this.transactions = resp;
   }
-
 
   @action
   async send() {
-    if (this.isSelf) return; // mag niet naar jezelf verzenden
+    if (this.isSelf) return;
 
     const csrfToken = document.querySelector("meta[name=csrf-token]").content;
 
     try {
       const resp = await ajax("/aandelen/transfer.json", {
         method: "POST",
-        data: {
-          username: this.args.model.user.username,
-          amount: parseInt(this.amount, 10),
-        },
-        headers: {
-          "X-CSRF-Token": csrfToken,
-        },
+        data: { username: this.args.model.user.username, amount: parseInt(this.amount, 10) },
+        headers: { "X-CSRF-Token": csrfToken }
       });
 
       if (resp.success) {

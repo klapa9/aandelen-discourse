@@ -1,4 +1,4 @@
-<DModal @title={{i18n "aandelen_discourse.title"}} @closeModal={{@closeModal}}>
+<DModal @title={{this.modalTitle}} @closeModal={{@closeModal}}>
   <:body>
     <p>{{i18n "aandelen_discourse.balance"}}: <b>{{this.balance}}</b></p>
 
@@ -41,5 +41,4 @@
     {{/if}}
     <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
   </:footer>
-
 </DModal>
