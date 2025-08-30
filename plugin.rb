@@ -5,12 +5,15 @@
 # version: 0.1
 # authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
-register_svg_icon "handshake" if respond_to?(:register_svg_icon)
+
 after_initialize do
-  load File.expand_path("controllers/aandelen_controller.rb", __dir__)
+  load File.expand_path("../app/controllers/aandelen_controller.rb", __FILE__)
 
   Discourse::Application.routes.append do
-    get  "/aandelen/balance" => "aandelen#balance"
-    post "/aandelen/send" => "aandelen#send"
+    get "/aandelen/balance" => "aandelen#balance", defaults: { format: :json }
+    get "/aandelen/transactions" => "aandelen#transactions", defaults: { format: :json }
+    post "/aandelen/transfer" => "aandelen#transfer", defaults: { format: :json }
   end
+
+
 end

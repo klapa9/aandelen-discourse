@@ -1,0 +1,13 @@
+en:
+  js:
+    aandelen_discourse:
+      title: "Shares"
+      balance: "Your current shares"
+      send_to: "You are about to send shares to:"
+      amount: "Number of shares:"
+      transactions: "Recent transactions"
+      sent: "Sent to"
+      received: "Received from"
+      shares: "shares"
+      send: "Send"
+      cancel: "Cancel"
