@@ -51,22 +51,24 @@ class AandelenController < ApplicationController
             .order(created_at: :desc)
             .limit(50)
 
-    render json: txs.map { |tx|
-      if tx.sender_id == current_user.id
-        {
-          type: "sent",
-          amount: tx.amount,
-          date: tx.created_at.strftime("%d-%m-%Y %H:%M"),
-          user: tx.receiver.username
-        }
-      else
-        {
-          type: "received",
-          amount: tx.amount,
-          date: tx.created_at.strftime("%d-%m-%Y %H:%M"),
-          user: "een gentleman"
-        }
-      end
+    render json: {
+      aandelen: txs.map { |tx|
+        if tx.sender_id == current_user.id
+          {
+            type: "sent",
+            amount: tx.amount,
+            date: tx.created_at.strftime("%d-%m-%Y %H:%M"),
+            user: tx.receiver.username
+          }
+        else
+          {
+            type: "received",
+            amount: tx.amount,
+            date: tx.created_at.strftime("%d-%m-%Y %H:%M"),
+            user: "een gentleman"
+          }
+        end
+      }
     }
   end
 end

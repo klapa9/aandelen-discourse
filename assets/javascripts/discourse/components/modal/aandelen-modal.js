@@ -38,7 +38,7 @@ export default class AandelenModal extends Component {
 
   async loadTransactions() {
     const resp = await ajax("/aandelen/transactions.json");
-    this.transactions = resp;
+    this.transactions = resp.aandelen || []; // <-- hier de nested key gebruiken
   }
 
   @action
