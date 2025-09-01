@@ -1,6 +1,6 @@
 import { getOwner } from "@ember/application"; 
-import AandelenModal from "discourse/plugins/aandelen-discourse/discourse/components/modal/aandelen-modal";
 import { ajax } from "discourse/lib/ajax";
+import AandelenModal from "discourse/plugins/aandelen-discourse/discourse/components/modal/aandelen-modal";
 
 export default {
   setupComponent(args, component) {
@@ -24,7 +24,18 @@ export default {
           const data = await ajax("/aandelen/balance.json", { method: "GET" });
           senderBalance = data.balance;
         }
-
+        
+        // sluit user-card
+        document.dispatchEvent(
+          new KeyboardEvent("keydown", {
+            key: "Escape",
+            keyCode: 27,
+            which: 27,
+            bubbles: true
+          })
+        );
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+  
         // Modal openen met juiste opties
         modal.show(AandelenModal, {
           model: {
