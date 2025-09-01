@@ -3,6 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { getOwner } from "@ember/application";
 import { action } from "@ember/object";
 import { ajax } from "discourse/lib/ajax";
+import InvitesModal from "discourse/plugins/aandelen-discourse/discourse/components/modal/invites-modal"; // <-- toegevoegd
 
 export default class AandelenModal extends Component {
   @tracked amount = "";
@@ -71,5 +72,26 @@ export default class AandelenModal extends Component {
   @action
   cancel() {
     this.args.closeModal();
+  }
+
+  // === NIEUW: open invites modal vanuit aandelen modal ===
+  @action
+  async openInvitesModal() {
+    try {
+      const modalService = getOwner(this).lookup("service:modal");
+      const user = this.args.model.user;
+
+      if (!user) {
+        console.error("Geen gebruiker beschikbaar om invites modal te openen.");
+        return alert("⚠️ Kan invites modal niet openen: geen gebruiker beschikbaar.");
+      }
+
+      modalService.show(InvitesModal, {
+        model: { user: user }
+      });
+    } catch (e) {
+      console.error("Fout bij openen invites modal:", e);
+      alert("⚠️ Kan invites modal niet openen: " + e.message);
+    }
   }
 }

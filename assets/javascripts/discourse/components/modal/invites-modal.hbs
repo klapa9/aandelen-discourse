@@ -1,0 +1,20 @@
+<DModal @title={{i18n "aandelen_discourse.invites_title"}} @closeModal={{@closeModal}}>
+  <:body>
+    <p>{{this.statusThisYear}}</p>
+    <p>{{this.statusTotal}}</p>
+
+    {{#if this.usedInvitesCount}}
+      <p>{{i18n "aandelen_discourse.your_invites"}}:</p>
+      <ul>
+        {{#each this.invites as |invite|}}
+          <li>{{invite.username}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </:body>
+
+  <:footer>
+    <DButton @translatedLabel={{i18n "aandelen_discourse.back_to_aandelen"}} @action={{this.backToAandelen}} class="btn-secondary"/>
+    <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+  </:footer>
+</DModal>

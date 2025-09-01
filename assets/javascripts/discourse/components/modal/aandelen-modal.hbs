@@ -36,9 +36,15 @@
   </:body>
 
   <:footer>
-    {{#if (not this.isSelf)}}
-      <DButton @translatedLabel={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
-    {{/if}}
-    <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
-  </:footer>
+  {{#if (not this.isSelf)}}
+    <DButton @translatedLabel={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
+  {{/if}}
+
+  {{!-- NIEUWE KNOP: open invites modal --}}
+  
+{{#if this.isSelf}}
+  <DButton @translatedLabel={{i18n "aandelen_discourse.open_invites"}} @action={{this.openInvitesModal}} class="btn-secondary"/>
+{{/if}}
+  <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+</:footer>
 </DModal>
