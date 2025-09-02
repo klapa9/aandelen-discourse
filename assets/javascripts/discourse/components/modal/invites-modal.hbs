@@ -7,7 +7,13 @@
       <p>{{i18n "aandelen_discourse.your_invites"}}:</p>
       <ul>
         {{#each this.invites as |invite|}}
-          <li>{{invite.username}}</li>
+          <li>
+            {{#if invite.username}}
+              {{invite.username}}
+            {{else}}
+              {{invite.email}} (nog niet geaccepteerd)
+            {{/if}}
+          </li>
         {{/each}}
       </ul>
     {{/if}}
