@@ -2,8 +2,7 @@ module Aandelen
   class AutomatischeTransactie
     def self.execute(new_user)
       # Vind de uitnodiger via Invite
-      invite = Invite.find_by(email: new_user.email)
-      inviter = invite&.invited_by
+      inviter = new_user.invited_by
       return unless inviter
 
       inviter_aandelen = inviter.aandelen_balance || 0
