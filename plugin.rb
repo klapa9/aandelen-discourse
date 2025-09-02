@@ -16,6 +16,7 @@ after_initialize do
     get "/aandelen/balance" => "aandelen#balance", defaults: { format: :json }
     get "/aandelen/transactions" => "aandelen#transactions", defaults: { format: :json }
     get "/aandelen/invites" => "invites#index", defaults: { format: :json }
+    get "/aandelen/users" => "aandelen#users", defaults: { format: :json }
     post "/aandelen/transfer" => "aandelen#transfer", defaults: { format: :json }
   end
 

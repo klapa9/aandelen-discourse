@@ -3,7 +3,14 @@
     <p>{{i18n "aandelen_discourse.balance"}}: <b>{{this.balance}}</b></p>
 
     {{#if (not this.isSelf)}}
-      <p>{{i18n "aandelen_discourse.to"}} <strong>{{@model.user.username}}</strong></p>
+      <label for="aandelen-receiver">{{i18n "aandelen_discourse.to"}}</label>
+      <select id="aandelen-receiver" {{on "change" this.updateSelectedUser}}>
+        {{#each this.users as |user|}}
+          <option value={{user.username}} selected={{eq user.username this.selectedUser}}>
+            {{user.username}}
+          </option>
+        {{/each}}
+      </select>
 
       <label for="aandelen-amount">{{i18n "aandelen_discourse.shares"}}</label>
       <input
@@ -14,6 +21,7 @@
         value={{this.amount}}
         {{on "input" this.updateAmount}}
       />
+
       <label for="aandelen-description">{{i18n "aandelen_discourse.description"}}</label>
       <textarea
         id="aandelen-description"
@@ -21,7 +29,6 @@
         value={{this.description}}
         {{on "input" this.updateDescription}}
       ></textarea>
-
     {{/if}}
 
     {{#if this.isSelf}}
@@ -42,21 +49,19 @@
             {{/if}}
           </li>
         {{/each}}
-
       </ul>
     {{/if}}
   </:body>
 
   <:footer>
-  {{#if (not this.isSelf)}}
-    <DButton @translatedLabel={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
-  {{/if}}
+    {{#if (not this.isSelf)}}
+      <DButton @translatedLabel={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
+    {{/if}}
 
-  {{!-- NIEUWE KNOP: open invites modal --}}
-  
-{{#if this.isSelf}}
-  <DButton @translatedLabel={{i18n "aandelen_discourse.open_invites"}} @action={{this.openInvitesModal}} class="btn-secondary"/>
-{{/if}}
-  <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
-</:footer>
+    {{#if this.isSelf}}
+      <DButton @translatedLabel={{i18n "aandelen_discourse.open_invites"}} @action={{this.openInvitesModal}} class="btn-secondary"/>
+    {{/if}}
+
+    <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+  </:footer>
 </DModal>

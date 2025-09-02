@@ -47,6 +47,19 @@ class AandelenController < ApplicationController
     render json: { success: false, errors: [e.message] }
   end
 
+  def users
+    # Ophalen van actieve gebruikers, eventueel filter toepassen
+    users = User.where(active: true).limit(50).map do |u|
+      {
+        id: u.id,
+        username: u.username,
+        name: u.name
+      }
+    end
+
+    render json: { users: users }
+  end
+
   # Optioneel: lijst van transacties voor de huidige gebruiker
   def transactions
     require_dependency "#{Rails.root}/plugins/aandelen-discourse/app/models/aandelen_transaction"
