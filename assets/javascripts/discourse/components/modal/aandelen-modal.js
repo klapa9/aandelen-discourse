@@ -10,6 +10,8 @@ export default class AandelenModal extends Component {
   @tracked balance = 0;
   @tracked transactions = [];
   @tracked isSelf = false;
+  @tracked description = "";
+
 
   constructor() {
     super(...arguments);
@@ -32,6 +34,12 @@ export default class AandelenModal extends Component {
     this.amount = event.target.value;
   }
 
+  @action
+  updateDescription(event) {
+    this.description = event.target.value;
+  }
+
+
   async loadBalance() {
     const resp = await ajax("/aandelen/balance.json");
     this.balance = resp.balance;
@@ -48,16 +56,28 @@ export default class AandelenModal extends Component {
 
     const csrfToken = document.querySelector("meta[name=csrf-token]").content;
 
+    // ✅ Controle toevoegen
+    if (!this.amount || this.amount <= 0) {
+      alert("❌ Vul een geldig aantal aandelen in (meer dan 0).");
+      return;
+    }
+
     try {
       const resp = await ajax("/aandelen/transfer.json", {
         method: "POST",
-        data: { username: this.args.model.user.username, amount: parseInt(this.amount, 10) },
+        data: {
+          username: this.args.model.user.username,
+          amount: parseInt(this.amount, 10),
+          description: this.description // nieuwe regel
+        },
         headers: { "X-CSRF-Token": csrfToken }
       });
+
 
       if (resp.success) {
         alert(`✅ ${this.amount} aandelen verstuurd naar ${this.args.model.user.username}`);
         this.amount = "";
+        this.description = ""; 
         await this.loadBalance();
         if (this.isSelf) await this.loadTransactions();
       } else {

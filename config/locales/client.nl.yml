@@ -11,6 +11,8 @@ nl:
       recent_transactions: "Recente transacties"
       send: "Verstuur"
       cancel: "Sluit venster"
+      description: "Boodschap"
+      description_placeholder: "Optioneel: Voeg een boodschap toe. Bijv. 'Bedankt voor het topevent!'"
       # invites
       invites_count: "Aantal uitnodigingen: %{count}"
       invites_remaining: "Resterende uitnodigingen: %{remaining}"

@@ -17,6 +17,10 @@ class AandelenController < ApplicationController
     receiver = User.find_by(username: params[:username])
     amount = params[:amount].to_i
 
+    if amount <= 0
+      return render json: { success: false, errors: ["Aantal aandelen moet groter dan 0 zijn"] }
+    end
+
     if receiver.nil?
       return render json: { success: false, errors: ["Gebruiker niet gevonden"] }
     end
@@ -33,7 +37,8 @@ class AandelenController < ApplicationController
       AandelenTransaction.create!(
         sender: current_user,
         receiver: receiver,
-        amount: amount
+        amount: amount,
+        description: params[:description] # nieuwe regel
       )
     end
 
@@ -53,7 +58,7 @@ class AandelenController < ApplicationController
 
     render json: {
       aandelen: txs.map { |tx|
-        if tx.sender_id == current_user.id
+        base = if tx.sender_id == current_user.id
           {
             type: "sent",
             amount: tx.amount,
@@ -68,7 +73,10 @@ class AandelenController < ApplicationController
             user: "een gentleman"
           }
         end
+        base[:description] = tx.description if tx.description.present?
+        base
       }
     }
+
   end
 end

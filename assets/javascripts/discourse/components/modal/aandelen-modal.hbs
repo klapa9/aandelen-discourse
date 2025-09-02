@@ -14,6 +14,14 @@
         value={{this.amount}}
         {{on "input" this.updateAmount}}
       />
+      <label for="aandelen-description">{{i18n "aandelen_discourse.description"}}</label>
+      <textarea
+        id="aandelen-description"
+        placeholder={{i18n "aandelen_discourse.description_placeholder"}}
+        value={{this.description}}
+        {{on "input" this.updateDescription}}
+      ></textarea>
+
     {{/if}}
 
     {{#if this.isSelf}}
@@ -29,8 +37,12 @@
               {{i18n "aandelen_discourse.from"}} <b>{{tx.user}}</b>
             {{/if}}
             : <b>{{tx.amount}}</b> {{i18n "aandelen_discourse.shares"}}
+            {{#if tx.description}}
+              <br><em>{{tx.description}}</em>
+            {{/if}}
           </li>
         {{/each}}
+
       </ul>
     {{/if}}
   </:body>
