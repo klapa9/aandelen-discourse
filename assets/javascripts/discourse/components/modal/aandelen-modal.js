@@ -9,29 +9,37 @@ export default class AandelenModal extends Component {
   @tracked amount = "";
   @tracked balance = 0;
   @tracked transactions = [];
-  @tracked isSelf = false;
   @tracked description = "";
-  @tracked users = [];          // 👈 lijst met users
-  @tracked selectedUser = null; // 👈 gekozen user
+  @tracked users = [];
+  @tracked selectedUser = null;
+  @tracked activeTab = "send"; // 👈 standaard tab
 
   constructor() {
     super(...arguments);
 
-    const currentUser = getOwner(this).lookup("service:current-user");
-    this.isSelf = currentUser.id === this.args.model.user.id;
+    this.currentUser = getOwner(this).lookup("service:current-user");
+    this.isSelf = this.currentUser.id === this.args.model.user.id;
 
     this.loadBalance();
     this.loadUsers();
-
-    if (this.isSelf) {
-      this.loadTransactions();
-    } 
+    this.loadTransactions(); // altijd laden (ook als je iemand anders bekijkt)
   }
 
   get modalTitle() {
-    return this.isSelf
-      ? I18n.t("aandelen_discourse.title_self", { username: this.args.model.user.username })
-      : I18n.t("aandelen_discourse.title_send");
+  if (this.activeTab === "send") {
+    return I18n.t("aandelen_discourse.title_send");
+  } else {
+    return I18n.t("aandelen_discourse.title_transactions");
+  }
+}
+
+  get canSend() {
+    return this.selectedUser && this.amount > 0;
+  }
+
+  @action
+  toggleTab() {
+    this.activeTab = this.activeTab === "send" ? "transactions" : "send";
   }
 
   @action
@@ -63,24 +71,21 @@ export default class AandelenModal extends Component {
     try {
       const resp = await ajax("/aandelen/users.json");
 
-      const currentUser = getOwner(this).lookup("service:current-user");
-
-      // Filter out discobot, system en de huidige gebruiker
-      this.users = (resp.users || []).filter(u =>
-        !["system", "discobot"].includes(u.username) &&
-        u.id !== currentUser.id
+      this.users = (resp.users || []).filter(
+        (u) =>
+          !["system", "discobot"].includes(u.username) &&
+          u.id !== this.currentUser.id
       );
 
-      // Check of de user uit de modal (args.model.user) in de lijst staat
       const modalUser = this.args.model.user?.username;
-      const userExists = this.users.some(u => u.username === modalUser);
+      const userExists = this.users.some((u) => u.username === modalUser);
 
-      if (userExists) {
+      if (userExists && modalUser) {
+        // profiel van iemand anders => zet die automatisch geselecteerd
         this.selectedUser = modalUser;
-      } else if (this.users.length > 0) {
-        this.selectedUser = this.users[0].username; // fallback naar eerste user
       } else {
-        this.selectedUser = null; // geen users beschikbaar
+        // geen geldige user -> fallback naar "selecteer een gentleman"
+        this.selectedUser = "";
       }
     } catch (e) {
       console.error("Kon gebruikerslijst niet laden:", e);
@@ -88,18 +93,15 @@ export default class AandelenModal extends Component {
   }
 
 
-
   @action
   async send() {
-    if (this.isSelf) return;
-
     const csrfToken = document.querySelector("meta[name=csrf-token]").content;
 
     if (!this.amount || this.amount <= 0) {
       alert("❌ Vul een geldig aantal aandelen in (meer dan 0).");
       return;
     }
-    if (!this.selectedUser) {
+    if (!this.selectedUser || this.selectedUser === "") {
       alert("❌ Kies een ontvanger.");
       return;
     }
@@ -108,11 +110,11 @@ export default class AandelenModal extends Component {
       const resp = await ajax("/aandelen/transfer.json", {
         method: "POST",
         data: {
-          username: this.selectedUser, // 👈 gekozen user
+          username: this.selectedUser,
           amount: parseInt(this.amount, 10),
-          description: this.description
+          description: this.description,
         },
-        headers: { "X-CSRF-Token": csrfToken }
+        headers: { "X-CSRF-Token": csrfToken },
       });
 
       if (resp.success) {
@@ -120,7 +122,7 @@ export default class AandelenModal extends Component {
         this.amount = "";
         this.description = "";
         await this.loadBalance();
-        if (this.isSelf) await this.loadTransactions();
+        await this.loadTransactions();
       } else {
         alert("❌ Fout: " + (resp.errors?.join(", ") || "Onbekend probleem"));
       }
@@ -129,6 +131,7 @@ export default class AandelenModal extends Component {
       alert("⚠️ Server error: " + e.message);
     }
   }
+
 
   @action
   cancel() {
@@ -143,11 +146,13 @@ export default class AandelenModal extends Component {
 
       if (!user) {
         console.error("Geen gebruiker beschikbaar om invites modal te openen.");
-        return alert("⚠️ Kan invites modal niet openen: geen gebruiker beschikbaar.");
+        return alert(
+          "⚠️ Kan invites modal niet openen: geen gebruiker beschikbaar."
+        );
       }
 
       modalService.show(InvitesModal, {
-        model: { user: user }
+        model: { user: user },
       });
     } catch (e) {
       console.error("Fout bij openen invites modal:", e);

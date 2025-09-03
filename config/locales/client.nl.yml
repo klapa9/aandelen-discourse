@@ -1,6 +1,7 @@
 nl:
   js:
     aandelen_discourse:
+      select_gentleman: "Selecteer een gentleman"
       title_self: "De aandelen van %{username}"
       title_send: "Aandelen versturen"
       open_modal: "⚖️ aandelen"
@@ -26,5 +27,9 @@ nl:
       invites_used: "Je hebt %{used} van de %{total} uitnodigingen verstuurd."
       your_invites: "Dit zijn je uitnodigingen:"
       invites_title: "Uitnodigingen beheren"
-      open_invites: "Uitnodigingen beheren"
-      back_to_aandelen: "Terug naar aandelen"
+      open_invites: "👥"
+      back_to_aandelen: "⚖️"
+      title_send: "Aandelen versturen"
+      title_transactions: "Mijn transacties"
+      show_transactions: "📜"
+      show_send: "⚖️"

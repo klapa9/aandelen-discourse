@@ -1,10 +1,14 @@
 <DModal @title={{this.modalTitle}} @closeModal={{@closeModal}}>
   <:body>
-    <p>{{i18n "aandelen_discourse.balance"}}: <b>{{this.balance}}</b></p>
+    
 
-    {{#if (not this.isSelf)}}
+    <!-- Tab inhoud -->
+    {{#if (eq this.activeTab "send")}}
       <label for="aandelen-receiver">{{i18n "aandelen_discourse.to"}}</label>
       <select id="aandelen-receiver" {{on "change" this.updateSelectedUser}}>
+        <option value="" selected={{eq this.selectedUser ""}}>
+          {{i18n "aandelen_discourse.select_gentleman"}}
+        </option>
         {{#each this.users as |user|}}
           <option value={{user.username}} selected={{eq user.username this.selectedUser}}>
             {{user.username}}
@@ -31,8 +35,9 @@
       ></textarea>
     {{/if}}
 
-    {{#if this.isSelf}}
-      <hr>
+
+
+    {{#if (eq this.activeTab "transactions")}}
       <h4>{{i18n "aandelen_discourse.recent_transactions"}}</h4>
       <ul>
         {{#each this.transactions as |tx|}}
@@ -53,15 +58,25 @@
     {{/if}}
   </:body>
 
-  <:footer>
-    {{#if (not this.isSelf)}}
-      <DButton @translatedLabel={{i18n "aandelen_discourse.send"}} class="btn-primary" @action={{this.send}}/>
-    {{/if}}
+   <:footer>
+      <div style="display: flex; justify-content: space-between; width: 100%;">
+        <div>
+          <DButton
+            @translatedLabel={{i18n "aandelen_discourse.send"}}
+            class="btn-primary"
+            @action={{this.send}}
+            disabled={{not this.canSend}}
+          />
+          <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+        </div>
 
-    {{#if this.isSelf}}
-      <DButton @translatedLabel={{i18n "aandelen_discourse.open_invites"}} @action={{this.openInvitesModal}} class="btn-secondary"/>
-    {{/if}}
-
-    <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
-  </:footer>
+        <div>
+          
+          <DButton @translatedLabel={{if (eq this.activeTab "send") (i18n "aandelen_discourse.show_transactions") (i18n "aandelen_discourse.show_send")}} @action={{this.toggleTab}} class="btn-secondary"/>
+          {{#if (eq this.activeTab "transactions")}}
+            <DButton @translatedLabel={{i18n "aandelen_discourse.open_invites"}} @action={{this.openInvitesModal}} class="btn-secondary"/>
+          {{/if}}
+        </div>
+      </div>
+    </:footer>
 </DModal>

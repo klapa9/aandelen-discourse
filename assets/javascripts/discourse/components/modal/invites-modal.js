@@ -18,7 +18,16 @@ export default class InvitesModal extends Component {
 
   async loadInvites() {
     try {
-      const resp = await ajax("/aandelen/invites.json");
+      const currentUser = getOwner(this).lookup("service:current-user");
+
+      if (!currentUser) {
+        console.error("Geen ingelogde gebruiker gevonden voor invites.");
+        return;
+      }
+
+      // Als de backend per gebruiker werkt, kan je hier bv. user_id meegeven
+      const resp = await ajax(`/aandelen/invites.json?user_id=${currentUser.id}`);
+
       this.invites = resp.invites || [];
       this.remaining_this_year = resp.remaining || 0;
       this.total_allowed = resp.max || 3;
@@ -55,14 +64,13 @@ export default class InvitesModal extends Component {
   @action
   backToAandelen() {
     const modal = getOwner(this).lookup("service:modal");
+    const currentUser = getOwner(this).lookup("service:current-user");
 
-    // sluit huidige invites modal
     this.args.closeModal();
 
-    // open aandelen modal opnieuw met dezelfde user
+    // open aandelen modal opnieuw met currentUser
     modal.show(AandelenModal, {
-      model: { user: this.args.model.user, senderBalance: this.args.model.senderBalance },
-      showHistoryOnly: this.args.model.showHistoryOnly
+      model: { user: currentUser },
     });
   }
 

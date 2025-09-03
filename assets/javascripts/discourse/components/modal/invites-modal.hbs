@@ -4,7 +4,7 @@
     <p>{{this.statusTotal}}</p>
 
     {{#if this.usedInvitesCount}}
-      <p>{{i18n "aandelen_discourse.your_invites"}}:</p>
+      <p>{{i18n "aandelen_discourse.your_invites"}}</p>
       <ul>
         {{#each this.invites as |invite|}}
           <li>
@@ -20,7 +20,13 @@
   </:body>
 
   <:footer>
-    <DButton @translatedLabel={{i18n "aandelen_discourse.back_to_aandelen"}} @action={{this.backToAandelen}} class="btn-secondary"/>
-    <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <div> 
+        <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
+      </div>
+      <div>
+        <DButton @translatedLabel={{i18n "aandelen_discourse.back_to_aandelen"}} @action={{this.backToAandelen}} class="btn-secondary"/>
+      </div>
+    </div>
   </:footer>
 </DModal>
