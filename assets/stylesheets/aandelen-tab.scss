@@ -1,0 +1,13 @@
+/* Styling voor de aandelen-tab */
+.user-menu-tab.aandelen-tab {
+  width: 50px;               /* breedte van een standaard tab */
+  display: flex;
+  justify-content: center;   /* icoon horizontaal centreren */
+  align-items: center;       /* icoon verticaal centreren */
+  padding: 0;
+}
+
+.user-menu-tab.aandelen-tab .btn-symbol {
+  font-size: 1.5em;          /* maak het icoon iets groter */
+  line-height: 1.7;            /* voorkomt verticale verschuiving */
+}

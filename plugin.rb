@@ -7,6 +7,7 @@
 # url: https://github.com/klapa9/aandelen-discourse
 require_relative "app/services/aandelen/automatische_transactie"
 require_relative "app/models/aandelen_transaction"
+register_asset "stylesheets/aandelen-tab.scss"
 
 after_initialize do
   load File.expand_path("../app/controllers/aandelen_controller.rb", __FILE__)
