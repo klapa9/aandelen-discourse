@@ -4,6 +4,9 @@
 
     <!-- Tab inhoud -->
     {{#if (eq this.activeTab "send")}}
+      <div class="aandelen-balance">
+        <strong>Jouw Saldo:</strong> {{this.balance}} aandelen<i class="fa fa-wallet"></i>
+      </div>
       <label for="aandelen-receiver">{{i18n "aandelen_discourse.to"}}</label>
       <select id="aandelen-receiver" {{on "change" this.updateSelectedUser}}>
         <option value="" selected={{eq this.selectedUser ""}}>
@@ -38,6 +41,9 @@
 
 
     {{#if (eq this.activeTab "transactions")}}
+      <div class="aandelen-balance">
+        <strong>Jouw Saldo:</strong> {{this.balance}} aandelen<i class="fa fa-wallet"></i>
+      </div>
       <h4>{{i18n "aandelen_discourse.recent_transactions"}}</h4>
       <ul>
         {{#each this.transactions as |tx|}}
