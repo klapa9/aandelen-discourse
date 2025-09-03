@@ -66,13 +66,16 @@
 
    <:footer>
       <div style="display: flex; justify-content: space-between; width: 100%;">
-        <div>
+        <div>{{#if (eq this.activeTab "send")}}
+           
           <DButton
             @translatedLabel={{i18n "aandelen_discourse.send"}}
             class="btn-primary"
             @action={{this.send}}
             disabled={{not this.canSend}}
           />
+           
+          {{/if}}
           <DButton @translatedLabel={{i18n "aandelen_discourse.cancel"}} @action={{this.cancel}}/>
         </div>
 
