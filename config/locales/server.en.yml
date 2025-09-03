@@ -1,0 +1,5 @@
+en:
+  invites:
+      error:
+        new_member: "New members cannot send invites in their registration year."
+        limit_reached: "You have reached your limit of one invite per year."

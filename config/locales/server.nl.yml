@@ -1,0 +1,6 @@
+# config/locales/server.nl.yml
+nl:
+  invites:
+    error:
+      new_member: "Nieuwe leden kunnen in hun registratiejaar geen uitnodigingen sturen."
+      limit_reached: "Je hebt je limiet van één uitnodiging per jaar bereikt."
