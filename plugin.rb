@@ -5,6 +5,8 @@
 # version: 0.1
 # authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
+
+enabled_site_setting :aandelen_invite_restriction_enabled
 require_relative "app/services/aandelen/automatische_transactie"
 require_relative "app/models/aandelen_transaction"
 register_asset "stylesheets/aandelen-tab.scss"

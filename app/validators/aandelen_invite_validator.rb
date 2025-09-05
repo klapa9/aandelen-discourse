@@ -1,6 +1,7 @@
 # app/validators/aandelen_invite_validator.rb
 class AandelenInviteValidator
   def self.validate(invite)
+    return unless SiteSetting.aandelen_invite_restriction_enabled
     # --- CORRECTIE 1 ---
     # De methode heet .invited_by, niet .inviter
     user = invite.invited_by
