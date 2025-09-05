@@ -1,7 +1,8 @@
 # config/settings.yml
-shares_enabled:
-  default: true
-  client: true
-aandelen_invite_restriction_enabled:
+plugins:
+  shares_enabled:
+    default: true
+    client: true
+  aandelen_invite_restriction_enabled:
     default: false
     client: false
