@@ -13,6 +13,7 @@ register_asset "stylesheets/aandelen-tab.scss"
 AANDELEN_RECEIVED_NOTIFICATION_TYPE = 999
 
 after_initialize do
+  require_dependency "#{Rails.root}/plugins/aandelen-discourse/app/jobs/regular/send_aandelen_messages.rb"
   load File.expand_path("../app/controllers/aandelen_controller.rb", __FILE__)
   load File.expand_path("../app/controllers/invites_controller.rb", __FILE__)
 
