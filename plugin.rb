@@ -10,9 +10,20 @@ require_relative "app/services/aandelen/automatische_transactie"
 require_relative "app/models/aandelen_transaction"
 register_asset "stylesheets/aandelen-tab.scss"
 
+AANDELEN_RECEIVED_NOTIFICATION_TYPE = 999
+
 after_initialize do
   load File.expand_path("../app/controllers/aandelen_controller.rb", __FILE__)
   load File.expand_path("../app/controllers/invites_controller.rb", __FILE__)
+
+  Notification.types[:aandelen_received] = AANDELEN_RECEIVED_NOTIFICATION_TYPE
+
+  # Vertel de serializer om de 'data' attribute correct te verwerken
+  add_to_serializer(:notification, :data) do
+    # De 'data' in de database is een JSON-string. We parsen het hier zelf naar een Hash.
+    # De || '{}' zorgt ervoor dat als 'data' leeg is, we een lege hash krijgen en geen fout.
+    JSON.parse(object.data || '{}')
+  end
 
   Discourse::Application.routes.append do
     get "/aandelen/balance" => "aandelen#balance", defaults: { format: :json }
@@ -36,5 +47,4 @@ after_initialize do
       AandelenInviteValidator.validate(self)
     end
   end
-
 end

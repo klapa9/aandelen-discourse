@@ -32,3 +32,9 @@ nl:
       title_transactions: "📜 Mijn transacties"
       show_transactions: "📜"
       show_send: "⚖️"
+      notification_received: "Je hebt zojuist %{aandelen_amount} aandelen ontvangen!" # Bestaande
+      notification_received_anonymous: "Een gentleman heeft je zojuist %{aandelen_amount} aandelen gegeven!" # NIEUW
+    action_codes:
+      aandelen:
+        received: "Aandelen Ontvangen"
+        sent: "Aandelen Verzonden"

@@ -4,3 +4,7 @@ nl:
     error:
       new_member: "Nieuwe leden kunnen in hun registratiejaar geen uitnodigingen sturen."
       limit_reached: "Je hebt je limiet van één uitnodiging per jaar bereikt."
+  action_codes:
+    aandelen:
+      received: "Aandelen Ontvangen"
+      sent: "Aandelen Verzonden"
