@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InvitesController < ApplicationController
+class AandelenInvitesController < ApplicationController
   requires_plugin 'aandelen-discourse'
 
   before_action :ensure_logged_in

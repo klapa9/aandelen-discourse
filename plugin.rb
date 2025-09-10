@@ -15,7 +15,7 @@ AANDELEN_RECEIVED_NOTIFICATION_TYPE = 999
 after_initialize do
   require_dependency "#{Rails.root}/plugins/aandelen-discourse/app/jobs/regular/send_aandelen_messages.rb"
   load File.expand_path("../app/controllers/aandelen_controller.rb", __FILE__)
-  load File.expand_path("../app/controllers/invites_controller.rb", __FILE__)
+  load File.expand_path("../app/controllers/aandelen_invites_controller.rb", __FILE__)
 
   Notification.types[:aandelen_received] = AANDELEN_RECEIVED_NOTIFICATION_TYPE
 
@@ -29,7 +29,7 @@ after_initialize do
   Discourse::Application.routes.append do
     get "/aandelen/balance" => "aandelen#balance", defaults: { format: :json }
     get "/aandelen/transactions" => "aandelen#transactions", defaults: { format: :json }
-    get "/aandelen/invites" => "invites#index", defaults: { format: :json }
+    get "/aandelen/invites" => "aandelen_invites#index", defaults: { format: :json }
     get "/aandelen/users" => "aandelen#users", defaults: { format: :json }
     post "/aandelen/transfer" => "aandelen#transfer", defaults: { format: :json }
   end
