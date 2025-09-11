@@ -19,7 +19,7 @@ module Aandelen
           sender: inviter,
           receiver: new_user,
           amount: helft_aandelen,
-          description: "Automatische toewijzing bij uitnodiging"
+          description: "Welkom bij Magast! #{inviter.username} heeft zo veel vertrouwen in jou dat hij de helft van zijn aandelen schenkt als welkomstgeschenk!"
         )
       end
     end
