@@ -1,6 +1,10 @@
 <DModal @title={{this.modalTitle}} @closeModal={{@closeModal}}>
   <:body>
-    
+    {{#if this.notificationMessage}}
+      <div class="aandelen-notification {{this.notificationType}}">
+        {{this.notificationMessage}}
+      </div>
+    {{/if}}
 
     <!-- Tab inhoud -->
     {{#if (eq this.activeTab "send")}}

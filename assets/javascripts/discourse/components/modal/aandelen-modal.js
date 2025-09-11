@@ -13,6 +13,8 @@ export default class AandelenModal extends Component {
   @tracked users = [];
   @tracked selectedUser = null;
   @tracked activeTab = "send"; // 👈 standaard tab
+  @tracked notificationMessage = null;
+  @tracked notificationType = null; // 'success' of 'error'
 
   constructor() {
     super(...arguments);
@@ -57,6 +59,18 @@ export default class AandelenModal extends Component {
     this.description = event.target.value;
   }
 
+  @action
+  showNotification(message, type, duration = 5000) {
+    this.notificationMessage = message;
+    this.notificationType = type;
+
+    // Verberg de notificatie na 'duration' milliseconden
+    setTimeout(() => {
+      this.notificationMessage = null;
+      this.notificationType = null;
+    }, duration);
+  }
+
   async loadBalance() {
     const resp = await ajax("/aandelen/balance.json");
     this.balance = resp.balance;
@@ -98,11 +112,11 @@ export default class AandelenModal extends Component {
     const csrfToken = document.querySelector("meta[name=csrf-token]").content;
 
     if (!this.amount || this.amount <= 0) {
-      alert("❌ Vul een geldig aantal aandelen in (meer dan 0).");
+      this.showNotification("❌ Vul een geldig aantal aandelen in (meer dan 0).", "error");
       return;
     }
     if (!this.selectedUser || this.selectedUser === "") {
-      alert("❌ Kies een ontvanger.");
+      this.showNotification("❌ Kies een ontvanger.", "error");
       return;
     }
 
@@ -118,17 +132,18 @@ export default class AandelenModal extends Component {
       });
 
       if (resp.success) {
-        alert(`✅ ${this.amount} aandelen verstuurd naar ${this.selectedUser}`);
+        this.showNotification(`✅ ${this.amount} aandelen verstuurd naar ${this.selectedUser}`, "success");
         this.amount = "";
         this.description = "";
         await this.loadBalance();
         await this.loadTransactions();
       } else {
-        alert("❌ Fout: " + (resp.errors?.join(", ") || "Onbekend probleem"));
+        const errorMessage = resp.errors?.join(", ") || "Onbekend probleem";
+        this.showNotification(`❌ Fout: ${errorMessage}`, "error");
       }
     } catch (e) {
       console.error(e);
-      alert("⚠️ Server error: " + e.message);
+      this.showNotification(`⚠️ Server error: ${e.message}`, "error");
     }
   }
 

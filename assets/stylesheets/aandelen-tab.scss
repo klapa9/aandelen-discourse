@@ -11,3 +11,25 @@
   font-size: 1.5em;          /* maak het icoon iets groter */
   line-height: 1.7;            /* voorkomt verticale verschuiving */
 }
+
+.aandelen-notification {
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  transition: all 0.5s ease-in-out;
+
+  // Stijl voor success-meldingen (groen)
+  &.success {
+    background-color: #28a745; // Groen
+    border: 1px solid #218838;
+  }
+
+  // Stijl voor error-meldingen (rood)
+  &.error {
+    background-color: #dc3545; // Rood
+    border: 1px solid #c82333;
+  }
+}
