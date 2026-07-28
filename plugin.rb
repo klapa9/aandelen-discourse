@@ -6,6 +6,7 @@
 # authors: klapa9
 # url: https://github.com/klapa9/aandelen-discourse
 
+require "json"
 require_relative "app/services/aandelen/automatische_transactie"
 require_relative "app/models/aandelen_transaction"
 register_asset "stylesheets/aandelen-tab.scss"
@@ -19,11 +20,19 @@ after_initialize do
 
   Notification.types[:aandelen_received] = AANDELEN_RECEIVED_NOTIFICATION_TYPE
 
-  # Vertel de serializer om de 'data' attribute correct te verwerken
+  # Vertel de serializer om de 'data' attribute correct te verwerken.
+  # Discourse kan deze waarde na een update als string, hash of nil leveren.
   add_to_serializer(:notification, :data) do
-    # De 'data' in de database is een JSON-string. We parsen het hier zelf naar een Hash.
-    # De || '{}' zorgt ervoor dat als 'data' leeg is, we een lege hash krijgen en geen fout.
-    JSON.parse(object.data || '{}')
+    raw_data = object.data
+
+    return {} if raw_data.blank?
+    return raw_data if raw_data.is_a?(Hash)
+
+    begin
+      JSON.parse(raw_data)
+    rescue JSON::ParserError, TypeError
+      {}
+    end
   end
 
   Discourse::Application.routes.append do
