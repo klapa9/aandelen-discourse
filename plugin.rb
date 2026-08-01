@@ -27,6 +27,11 @@ module Aandelen
       Notification.types[:aandelen_received] = AANDELEN_RECEIVED_NOTIFICATION_TYPE
 
       Discourse::Application.routes.append do
+        get "/aandelen/balance.json" => "aandelen#balance", defaults: { format: :json }
+        get "/aandelen/transactions.json" => "aandelen#transactions", defaults: { format: :json }
+        get "/aandelen/invites.json" => "aandelen_invites#index", defaults: { format: :json }
+        get "/aandelen/users.json" => "aandelen#users", defaults: { format: :json }
+        post "/aandelen/transfer.json" => "aandelen#transfer", defaults: { format: :json }
         get "/aandelen/balance" => "aandelen#balance", defaults: { format: :json }
         get "/aandelen/transactions" => "aandelen#transactions", defaults: { format: :json }
         get "/aandelen/invites" => "aandelen_invites#index", defaults: { format: :json }
